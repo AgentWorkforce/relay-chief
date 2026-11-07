@@ -1,0 +1,30 @@
+[Unit]
+Description=Relay Chief coordination cycle
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=relay-chief
+Group=relay-chief
+StateDirectory=relay-chief
+StateDirectoryMode=0700
+WorkingDirectory=/var/lib/relay-chief
+EnvironmentFile=/run/relay-chief/credentials.env
+ExecStart=/usr/bin/node /opt/relay-chief/dist/cli.js run-once /etc/relay-chief/config.json /var/lib/relay-chief/chief.db --dispatch
+TimeoutStartSec=120
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/relay-chief
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+MemoryMax=512M
+CPUQuota=100%
