@@ -28,8 +28,9 @@ export async function runPhase(phase: Phase, ports: CyclePorts): Promise<PhaseRe
     case 'verify': {
       // Retry incomplete verification independently of report redelivery.
       const pending = chief.ledger.tasks().filter(task => task.status === 'awaiting_verification');
-      for (const task of pending) await chief.verify(task.id);
-      return { verified: pending.length };
+      let verified = 0;
+      for (const task of pending) if ((await chief.verify(task.id)).status !== 'awaiting_verification') verified++;
+      return { verified };
     }
     case 'scan':
       return { decisions: await chief.scan(ports.source) };

@@ -17,6 +17,7 @@ const FLOW = join(root, 'flows/chief-cycle.flow.ts');
 const CLI = join(here, 'fixture-cli.mjs');
 const argValue = (flag, fallback) => { const i = process.argv.indexOf(flag); return i > 0 ? process.argv[i + 1] : fallback; };
 const REPS = Number(argValue('--reps', 3));
+if (!Number.isInteger(REPS) || REPS < 1) throw new Error('--reps must be a positive integer');
 const OUT = argValue('--out');
 const STRUCTURES = ['direct', 'monolith', 'phased', 'gated'];
 const FIRINGS = 4;
@@ -134,7 +135,8 @@ async function trial(structure, name) {
   await new Promise(r => fake.server.listen(0, '127.0.0.1', r));
   const base = `http://127.0.0.1:${fake.server.address().port}`;
   const cliArgs = ['--base', base, '--pidfile', pidfile];
-  const cli = `${process.execPath} ${CLI} ${cliArgs.join(' ')}`;
+  const shellQuote = value => `'${value.replaceAll("'", `'\\''`)}'`;
+  const cli = [process.execPath, CLI, ...cliArgs].map(shellQuote).join(' ');
   const onChild = child => { current = child; };
   const runsDir = join(data, 'runs');
   const listRuns = () => existsSync(runsDir) ? readdirSync(runsDir).filter(f => f.endsWith('.sqlite3')).map(f => f.slice(0, -8)) : [];
@@ -159,7 +161,7 @@ async function trial(structure, name) {
       const started = performance.now();
       const result = await fire();
       out.firingMs.push(performance.now() - started);
-      if (result.resumed) { out.resumed = true; out.resumeOk = result.code === 0; }
+      if (result.resumed) { out.resumed = true; out.resumeOk = result.code === 0; out.resumeMs = Math.round(result.resumeMs); }
       if (/Dashboard: https?:|\/cloud\/dashboard\//.test(result.output) || existsSync(join(data, 'cloud-runs')) && readdirSync(join(data, 'cloud-runs')).length) {
         throw new Error('benchmark_run_reached_cloud');
       }
@@ -219,6 +221,8 @@ for (const structure of STRUCTURES) {
     resumeFailures: own.filter(t => t.resumed && !t.resumeOk).length,
     firingMedianMs: Math.round(percentile(happy, 0.5)), firingP95Ms: Math.round(percentile(happy, 0.95)) });
 }
-const report = { flowsVersion: '2.0.65', reps: REPS, firings: FIRINGS, summary, trials };
+const flowsVersion = JSON.parse(readFileSync(join(root, 'flows/node_modules/relayflows/package.json'), 'utf8')).version;
+const report = { flowsVersion, node: process.version, platform: `${process.platform}-${process.arch}`, reps: REPS, firings: FIRINGS, summary, trials };
 if (OUT) writeFileSync(OUT, `${JSON.stringify(report, null, 2)}\n`);
 console.log(JSON.stringify(summary, null, 1));
+rmSync(LOCAL_ENV.HOME, { recursive: true, force: true });

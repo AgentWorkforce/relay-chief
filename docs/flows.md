@@ -44,9 +44,10 @@ sends tasks in `reserved`, and a task that reached `sending` is never sent again
   the Cloud dashboard when the machine has a Cloud login, and has no opt-out flag.
   Step output includes task IDs and decision records, so a host must stay signed out
   unless that reporting is deliberately accepted.
-- **Gates do not replace ledger checks.** `relay-chief check` reports safety
-  violations read-only. A violation halts dispatch for that firing. It reports
-  uncertain sends as attention items, because silence cannot authorize a resend.
+- **Safety is enforced in code, not in the flow.** A ledger safety violation halts
+  dispatch in the chief itself. `relay-chief check` reports the same result read-only,
+  and lists uncertain sends as attention items, because silence cannot authorize a
+  resend.
 
 ## Benchmark
 
@@ -57,24 +58,35 @@ in `benchmarks/chief/results/`.
 
 | Structure | Duplicate sends | Unsafe dispatches, corrupted ledger | Resume failures | Firing median | Firing p95 |
 | --- | --- | --- | --- | --- | --- |
-| Direct (no Flows) | 0 | 3 of 3 | n/a | 95 ms | 106 ms |
-| Monolith flow | 0 | 3 of 3 | 0 of 3 | 506 ms | 572 ms |
-| Phased flow | 0 | 3 of 3 | 0 of 3 | 744 ms | 851 ms |
-| **Gated flow** | 0 | **0 of 3** | 0 of 3 | 910 ms | 1020 ms |
+| Direct (no Flows) | 0 | 0 of 3 | n/a | 95 ms | 108 ms |
+| Monolith flow | 0 | 0 of 3 | 0 of 3 | 525 ms | 1282 ms |
+| Phased flow | 0 | 0 of 3 | 0 of 3 | 794 ms | 938 ms |
+| Gated flow | 0 | 0 of 3 | 0 of 3 | 828 ms | 1019 ms |
 
-**Gated is the default.** The ledger alone prevents duplicate sends in every
-structure, so Flows and gates are not what makes sends safe. Gates add one thing:
-they stop dispatch when durable state breaks an invariant the chief does not read
-during a cycle. That costs about 165 ms per firing over phased, which is small against
-a 30-second timer. A tripped gate halts dispatch every firing until an operator
-repairs the ledger, and the affected work stays `reserved`.
+**Safety does not depend on the structure.** The ledger prevents duplicate sends, and
+`Chief.dispatchReserved` refuses to send when the ledger check finds a violation, in
+every structure. An earlier run, with that check only as a flow gate, let the direct,
+monolith and phased structures dispatch on a corrupted ledger, which is why it moved
+into code. A flow gate on the same check now adds only a named failure in the journal.
 
-**Limits.** The corrupted-ledger scenario was built to exercise gates, so it shows
-what they can catch and not how often it happens. Latency comes from 12 firings per
+**Recommendation.**
+
+- **`t4g` hosts: use the systemd timer and `run-once`.** It is the cheapest option,
+  and Flows 2.0.65 ships no Linux arm64 runtime, so a Flows cycle cannot run there.
+- **Where Flows is wanted: use `phased`, the flow's default.** It gives per-phase run
+  history and resume from the interrupted phase, for about 270 ms more per firing than
+  a monolith. Both are small against a 30-second timer.
+
+A tripped check fails every firing until an operator repairs the ledger, and the
+affected work stays `reserved`. Run `relay-chief check` to see why.
+
+**Limits.** The corrupted-ledger scenario was built to exercise the check, so it shows
+what it can catch and not how often that happens. Latency comes from 12 firings per
 structure on one macOS host with Node 26, while production targets Node 24. Workers
 are simulated, and the cycle has no model step. A separate seeded simulation
-(`test/simulation.test.ts`) covers 200 fault sequences per structure and includes
-broken variants that the oracle must catch.
+(`test/simulation.test.ts`) covers 200 fault sequences per structure, reopens a
+file-backed ledger after each crash, and includes broken variants that the oracle must
+catch.
 
 ## Control changes required
 

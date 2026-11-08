@@ -20,21 +20,23 @@ function passed(output: string): boolean {
  */
 export default flow<CycleInput>('relay-chief-cycle', async (f, input) => {
   const files = `${quote(input.config)} ${quote(input.ledger)}`;
-  const dispatch = input.dispatch ?? false;
-  const structure = input.structure ?? 'gated';
+  // Fail before any step: a loose value must never enable sends or pick another structure.
+  if (input.dispatch !== undefined && typeof input.dispatch !== 'boolean') throw new Error('invalid_dispatch');
+  const structure = input.structure ?? 'phased';
+  if (!['monolith', 'phased', 'gated'].includes(structure)) throw new Error('invalid_structure');
+  const dispatch = input.dispatch === true;
   if (structure === 'monolith') {
     await f.run(`${input.cli} run-once ${files}${dispatch ? ' --dispatch' : ''}`);
     return f.done('success');
   }
   const phase = (name: string) => f.run(`${input.cli} phase ${name} ${files}`);
   const check = () => f.run(`${input.cli} check ${files}`)
-    .gate(passed, 'ledger safety invariants failed; dispatch is halted');
+    .gate(passed, 'ledger safety invariants failed');
   await phase('reports');
   await phase('verify');
   await phase('scan');
   if (!dispatch) return f.done('success');
   if (structure === 'gated') await check();
   await phase('dispatch');
-  if (structure === 'gated') await check();
   f.done('success');
 });

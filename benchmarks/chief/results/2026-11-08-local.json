@@ -1,5 +1,7 @@
 {
   "flowsVersion": "2.0.65",
+  "node": "v26.8.1",
+  "platform": "darwin-arm64",
   "reps": 3,
   "firings": 4,
   "summary": [
@@ -10,10 +12,10 @@
       "safetyViolationsAtEnd": 0,
       "wrongPostCount": 0,
       "incomplete": 0,
-      "unsafeDispatchesAfterPoison": 3,
+      "unsafeDispatchesAfterPoison": 0,
       "resumeFailures": 0,
       "firingMedianMs": 95,
-      "firingP95Ms": 106
+      "firingP95Ms": 108
     },
     {
       "structure": "monolith",
@@ -22,10 +24,10 @@
       "safetyViolationsAtEnd": 0,
       "wrongPostCount": 0,
       "incomplete": 0,
-      "unsafeDispatchesAfterPoison": 3,
+      "unsafeDispatchesAfterPoison": 0,
       "resumeFailures": 0,
-      "firingMedianMs": 506,
-      "firingP95Ms": 572
+      "firingMedianMs": 525,
+      "firingP95Ms": 1282
     },
     {
       "structure": "phased",
@@ -34,10 +36,10 @@
       "safetyViolationsAtEnd": 0,
       "wrongPostCount": 0,
       "incomplete": 0,
-      "unsafeDispatchesAfterPoison": 3,
+      "unsafeDispatchesAfterPoison": 0,
       "resumeFailures": 0,
-      "firingMedianMs": 744,
-      "firingP95Ms": 851
+      "firingMedianMs": 794,
+      "firingP95Ms": 938
     },
     {
       "structure": "gated",
@@ -48,8 +50,8 @@
       "incomplete": 0,
       "unsafeDispatchesAfterPoison": 0,
       "resumeFailures": 0,
-      "firingMedianMs": 910,
-      "firingP95Ms": 1020
+      "firingMedianMs": 828,
+      "firingP95Ms": 1019
     }
   ],
   "trials": [
@@ -57,10 +59,10 @@
       "structure": "direct",
       "scenario": "happy",
       "firingMs": [
-        105.66637500000002,
-        96.31699999999998,
-        90.85725000000002,
-        91.70554199999998
+        107.865084,
+        97.08508299999997,
+        90.98870899999997,
+        92.96775000000002
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -77,16 +79,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "happy",
       "firingMs": [
-        106.08350000000002,
-        99.50312499999995,
-        89.59775000000002,
-        87.87725
+        102.05954100000002,
+        97.36175000000003,
+        90.7695,
+        92.9760419999999
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -103,16 +106,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "happy",
       "firingMs": [
-        106.43308400000001,
-        96.52787499999988,
-        94.58162500000003,
-        91.99212499999999
+        107.260625,
+        96.65729199999987,
+        87.72287499999993,
+        95.13208399999985
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -129,16 +133,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "happy",
       "firingMs": [
-        571.9348339999999,
-        515.7218330000001,
-        499.71404200000006,
-        504.8442500000001
+        1282.4198340000003,
+        524.7382499999999,
+        702.2074160000002,
+        502.72358299999996
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -155,16 +160,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "happy",
       "firingMs": [
-        568.1421249999999,
-        501.1091250000004,
-        501.08849999999984,
-        500.594333
+        572.6080000000002,
+        519.0690829999994,
+        508.1722499999996,
+        508.73104200000034
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -181,16 +187,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "happy",
       "firingMs": [
-        563.5554589999992,
-        505.74275000000034,
-        513.2205000000004,
-        516.5344169999998
+        578.6090829999994,
+        523.8411659999992,
+        526.1790409999994,
+        538.3529579999995
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -207,16 +214,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "happy",
       "firingMs": [
-        847.6850419999992,
-        740.8188329999994,
-        731.3448749999989,
-        726.9009160000005
+        937.533958,
+        799.7749170000006,
+        794.3531660000008,
+        794.3981249999997
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -233,16 +241,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "happy",
       "firingMs": [
-        850.6976250000007,
-        743.8295829999988,
-        737.1659170000003,
-        744.1404170000005
+        934.3459579999999,
+        813.466292000001,
+        794.6473339999993,
+        791.1109580000011
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -259,16 +268,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "happy",
       "firingMs": [
-        850.6372089999986,
-        740.0489170000001,
-        752.9654169999994,
-        745.2261670000007
+        890.8860829999994,
+        737.4526669999996,
+        729.8481250000004,
+        759.4770410000019
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -285,16 +295,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "happy",
       "firingMs": [
-        1012.1695,
-        909.9486250000009,
-        905.4922920000026,
-        896.3088749999988
+        1018.5331249999981,
+        843.8907500000023,
+        827.5175830000007,
+        828.987333000001
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -311,16 +322,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "happy",
       "firingMs": [
-        1020.2137909999983,
-        894.3186249999999,
-        909.3626250000016,
-        906.6361250000009
+        951.3298749999994,
+        828.8157919999976,
+        817.9485829999976,
+        819.1184170000015
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -337,16 +349,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "happy",
       "firingMs": [
-        1017.8114169999972,
-        926.9459170000009,
-        988.6144590000004,
-        912.0426669999979
+        929.6478329999991,
+        819.1869579999984,
+        813.710500000001,
+        822.7805000000008
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -363,16 +376,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        100.35516699999789,
-        98.749791000002,
-        91.89679199999955,
-        88.35041600000113
+        97.56629199999952,
+        94.27733300000182,
+        87.58737499999916,
+        87.9577500000014
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -388,16 +402,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        108.00995799999873,
-        101.71487500000148,
-        91.37183300000106,
-        89.86058400000184
+        103.34520799999882,
+        92.24133399999846,
+        91.56645800000115,
+        92.67720800000097
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -413,16 +428,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        99.4308749999982,
-        94.69225000000006,
-        89.33649999999761,
-        92.42895900000076
+        110.50087500000154,
+        95.8974589999998,
+        93.56658299999981,
+        89.75324999999793
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -438,16 +454,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        565.8487920000007,
-        504.57050000000163,
-        506.1402500000004,
-        503.8482920000024
+        576.158958,
+        513.3180420000026,
+        496.34600000000137,
+        494.5482499999998
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -463,16 +480,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        584.4001250000001,
-        503.14504099999976,
-        503.5589169999985,
-        522.0673749999987
+        561.0462079999998,
+        498.32004099999904,
+        496.6646669999973,
+        496.17741599999863
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -488,16 +506,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        725.2788330000039,
-        502.7224999999962,
-        496.3207919999986,
-        491.97079099999974
+        564.1872090000033,
+        502.29145900000003,
+        494.27116699999897,
+        495.04116699999577
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -513,16 +532,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        858.366915999999,
-        735.4694170000002,
-        745.370084000002,
-        737.3165840000001
+        839.992416999994,
+        849.8104579999999,
+        731.4924580000006,
+        787.7099999999991
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -538,16 +558,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        847.5109589999993,
-        730.2483330000032,
-        971.6715419999964,
-        747.5734579999989
+        852.3440830000036,
+        737.6027909999975,
+        735.2013329999972,
+        779.0652499999997
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -563,16 +584,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        860.835291000003,
-        731.0367079999996,
-        757.1418750000012,
-        711.1574580000015
+        849.7914999999994,
+        746.6115419999987,
+        742.1016670000026,
+        740.418875000003
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -588,16 +610,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        988.0439159999951,
-        896.2736249999944,
-        942.1125830000019,
-        947.008332999998
+        1140.9853749999966,
+        822.7640000000029,
+        832.8596249999973,
+        1041.104499999994
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -613,16 +636,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        1025.2984999999971,
-        907.2771670000002,
-        941.2484590000022,
-        993.2504169999957
+        932.5145410000041,
+        814.5459999999948,
+        818.8862920000029,
+        821.1675420000029
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -638,16 +662,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "duplicate_evidence",
       "firingMs": [
-        1032.9663340000043,
-        918.9492920000048,
-        927.6710000000021,
-        976.7957500000048
+        929.2583330000052,
+        820.5895830000009,
+        831.1717500000013,
+        822.4305840000015
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -663,16 +688,17 @@
       "posts": 2,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "lost_ack",
       "firingMs": [
-        104.82862500000192,
-        97.29125000000204,
-        90.22708299999795,
-        88.73633400000108
+        104.68599999999424,
+        95.63237500000105,
+        91.7925830000022,
+        90.56141699999716
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -689,16 +715,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "lost_ack",
       "firingMs": [
-        104.80187500000466,
-        96.45995799999946,
-        90.86679100000038,
-        92.50012500000594
+        102.39824999999837,
+        100.35570900000312,
+        89.74725000000035,
+        89.58333300000231
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -715,16 +742,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "lost_ack",
       "firingMs": [
-        106.04075000000012,
-        90.97387500000332,
-        91.1415829999969,
-        89.8995419999992
+        124.11416699999972,
+        163.1077079999959,
+        88.86558299999888,
+        87.45858399999997
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -741,16 +769,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "lost_ack",
       "firingMs": [
-        572.117250000003,
-        503.7638330000045,
-        502.1100409999999,
-        491.27475000000413
+        573.5354169999991,
+        500.7353329999969,
+        490.17279200000485,
+        497.22945900000195
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -767,16 +796,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "lost_ack",
       "firingMs": [
-        574.1868749999994,
-        507.22183300000324,
-        496.38691599999584,
-        495.8035000000018
+        573.7686669999966,
+        506.9259999999995,
+        499.8454580000034,
+        501.94462499999645
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -793,16 +823,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "lost_ack",
       "firingMs": [
-        570.9825829999972,
-        497.18624999999884,
-        509.874834000002,
-        508.6678329999995
+        619.009791000004,
+        523.1861250000002,
+        498.6141669999997,
+        492.4574580000044
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -819,16 +850,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "lost_ack",
       "firingMs": [
-        961.0365420000016,
-        735.6582919999928,
-        724.0525409999973,
-        734.0124589999905
+        854.8148749999964,
+        743.4747920000009,
+        738.2642090000008,
+        732.4581250000047
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -845,16 +877,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "lost_ack",
       "firingMs": [
-        854.6122500000056,
-        731.9845420000056,
-        726.6582079999935,
-        729.4854590000032
+        855.0904999999912,
+        755.3535419999971,
+        739.7507920000062,
+        739.0636670000094
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -871,16 +904,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "lost_ack",
       "firingMs": [
-        852.2610419999983,
-        758.929375000007,
-        739.4839999999967,
-        745.4406670000026
+        855.4933750000055,
+        732.744000000006,
+        742.7633339999884,
+        763.541333000001
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -897,16 +931,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "lost_ack",
       "firingMs": [
-        1175.3595829999977,
-        885.1547920000012,
-        1052.479124999998,
-        868.8258330000099
+        933.2972909999953,
+        826.8983330000046,
+        1234.0476250000065,
+        829.3569169999973
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -923,16 +958,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "lost_ack",
       "firingMs": [
-        983.7514579999988,
-        874.1105830000015,
-        885.598582999999,
-        890.5400420000078
+        946.9588330000115,
+        825.2183340000047,
+        818.6815829999978,
+        1050.282124999998
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -949,16 +985,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "lost_ack",
       "firingMs": [
-        987.8731669999979,
-        889.3295420000068,
-        900.2310839999991,
-        976.8339160000032
+        947.908208000008,
+        851.9362910000054,
+        831.4005419999885,
+        831.2045840000064
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -975,16 +1012,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "classifier_outage",
       "firingMs": [
-        98.73583299999882,
-        93.1210829999909,
-        90.16745799999626,
-        90.06562500000291
+        96.65829099999974,
+        93.91941699999734,
+        91.21524999999383,
+        89.86770799999067
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -999,16 +1037,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "classifier_outage",
       "firingMs": [
-        98.17762499999662,
-        94.68395800000872,
-        90.34879200000432,
-        90.20033300000068
+        92.41220799999428,
+        90.74545800000487,
+        93.04045900001074,
+        89.58095799999137
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1023,16 +1062,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "classifier_outage",
       "firingMs": [
-        98.47612500000105,
-        95.29262500000186,
-        89.2867499999993,
-        89.20337500001187
+        94.10170899999503,
+        91.14800000000105,
+        91.33254099999613,
+        89.26583299999766
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1047,16 +1087,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "classifier_outage",
       "firingMs": [
-        566.3367500000022,
-        507.9263329999958,
-        498.46949999999197,
-        498.752708
+        558.2077089999948,
+        496.7032920000056,
+        495.1344160000008,
+        505.5179579999967
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1071,16 +1112,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "classifier_outage",
       "firingMs": [
-        563.3591250000027,
-        503.1281250000029,
-        501.2306249999965,
-        495.34295800000837
+        554.298833000008,
+        495.4842920000083,
+        497.44779100001324,
+        490.8727079999953
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1095,16 +1137,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "classifier_outage",
       "firingMs": [
-        557.7712499999907,
-        499.5445420000033,
-        492.1517920000042,
-        498.71666600000754
+        546.3099169999914,
+        485.1052079999936,
+        492.57145899999887,
+        629.823292000001
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1119,16 +1162,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "classifier_outage",
       "firingMs": [
-        845.7686660000036,
-        724.4165420000063,
-        736.737208999999,
-        754.4569589999883
+        829.668875000003,
+        717.4762090000004,
+        724.7540000000008,
+        731.7700000000041
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1143,16 +1187,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "classifier_outage",
       "firingMs": [
-        840.5082079999993,
-        729.4402909999917,
-        735.7847919999913,
-        733.7445000000007
+        845.9912499999919,
+        742.7702920000011,
+        738.4412499999889,
+        742.8622920000053
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1167,16 +1212,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "classifier_outage",
       "firingMs": [
-        843.5897079999995,
-        738.666624999998,
-        728.3886250000069,
-        736.7004999999917
+        841.0991249999934,
+        722.7632920000033,
+        718.4325830000016,
+        730.1297500000073
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1191,16 +1237,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "classifier_outage",
       "firingMs": [
-        1037.7839999999997,
-        898.8944590000028,
-        905.6321250000037,
-        910.1821670000063
+        928.4608750000043,
+        820.6339589999989,
+        833.4771250000049,
+        831.8217920000025
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1215,16 +1262,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "classifier_outage",
       "firingMs": [
-        1026.503291999994,
-        904.1446250000008,
-        901.7594160000008,
-        914.4713749999937
+        926.2003340000083,
+        808.4489170000015,
+        806.7970420000056,
+        805.8151250000083
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1239,16 +1287,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "classifier_outage",
       "firingMs": [
-        1015.9223749999946,
-        918.1805829999939,
-        908.547333999988,
-        914.5604170000006
+        940.5380420000001,
+        818.8935409999976,
+        809.4043749999983,
+        824.9682919999905
       ],
       "failedFirings": 0,
       "resumed": false,
@@ -1263,16 +1312,17 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "crash_on_send",
       "firingMs": [
-        87.54083300000639,
-        103.07316699999501,
-        96.54904199999874,
-        90.62275000000955
+        88.71749999999884,
+        97.1744580000086,
+        90.9611670000013,
+        89.65758300000743
       ],
       "failedFirings": 1,
       "resumed": false,
@@ -1289,16 +1339,19 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": [
+        ""
+      ]
     },
     {
       "structure": "direct",
       "scenario": "crash_on_send",
       "firingMs": [
-        93.27166600000055,
-        104.91933300001256,
-        93.77624999999534,
-        90.07295899999735
+        89.10454200000095,
+        97.76650000001246,
+        93.74566700001014,
+        92.27283400000306
       ],
       "failedFirings": 1,
       "resumed": false,
@@ -1315,16 +1368,19 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": [
+        ""
+      ]
     },
     {
       "structure": "direct",
       "scenario": "crash_on_send",
       "firingMs": [
-        92.70441700000083,
-        102.29079199999978,
-        94.52533299999777,
-        92.1006250000064
+        91.27612500000396,
+        104.34387500000594,
+        94.94204199999513,
+        94.49283299999661
       ],
       "failedFirings": 1,
       "resumed": false,
@@ -1341,20 +1397,24 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": [
+        ""
+      ]
     },
     {
       "structure": "monolith",
       "scenario": "crash_on_send",
       "firingMs": [
-        994.4317089999968,
-        502.5685830000002,
-        497.9174170000042,
-        502.6940409999952
+        1008.6545420000039,
+        513.4080419999955,
+        510.270583000005,
+        508.87545800000953
       ],
       "failedFirings": 0,
       "resumed": true,
       "resumeOk": true,
+      "resumeMs": 460,
       "check": {
         "ok": true,
         "violations": [],
@@ -1368,20 +1428,22 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "crash_on_send",
       "firingMs": [
-        991.0844580000121,
-        505.78075000000536,
-        506.11166599999706,
-        508.262584000011
+        1005.5745000000024,
+        505.46870800000033,
+        515.5752919999941,
+        516.1237499999988
       ],
       "failedFirings": 0,
       "resumed": true,
       "resumeOk": true,
+      "resumeMs": 468,
       "check": {
         "ok": true,
         "violations": [],
@@ -1395,20 +1457,22 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "monolith",
       "scenario": "crash_on_send",
       "firingMs": [
-        978.6862079999992,
-        501.1032919999998,
-        498.01529100000334,
-        488.5211249999993
+        1020.2645419999899,
+        523.7192919999943,
+        505.3117910000001,
+        514.1161670000001
       ],
       "failedFirings": 0,
       "resumed": true,
       "resumeOk": true,
+      "resumeMs": 477,
       "check": {
         "ok": true,
         "violations": [],
@@ -1422,20 +1486,22 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "crash_on_send",
       "firingMs": [
-        1268.3522499999963,
-        733.5822090000001,
-        731.7147499999992,
-        729.4063330000063
+        1303.7904160000035,
+        751.7926250000019,
+        784.1425840000011,
+        761.3248750000057
       ],
       "failedFirings": 0,
       "resumed": true,
       "resumeOk": true,
+      "resumeMs": 481,
       "check": {
         "ok": true,
         "violations": [],
@@ -1449,20 +1515,22 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "crash_on_send",
       "firingMs": [
-        1306.508541999996,
-        740.106667,
-        728.6527090000018,
-        724.0360419999924
+        1317.6129999999976,
+        755.8135829999956,
+        748.0657499999943,
+        763.6856669999979
       ],
       "failedFirings": 0,
       "resumed": true,
       "resumeOk": true,
+      "resumeMs": 482,
       "check": {
         "ok": true,
         "violations": [],
@@ -1476,20 +1544,22 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "phased",
       "scenario": "crash_on_send",
       "firingMs": [
-        1279.165915999998,
-        726.6863750000048,
-        726.5700840000063,
-        728.308875000017
+        1315.3562089999905,
+        769.7475419999973,
+        926.7747919999965,
+        729.6956250000076
       ],
       "failedFirings": 0,
       "resumed": true,
       "resumeOk": true,
+      "resumeMs": 488,
       "check": {
         "ok": true,
         "violations": [],
@@ -1503,20 +1573,22 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "crash_on_send",
       "firingMs": [
-        1461.8647089999868,
-        905.2516670000041,
-        899.1132499999949,
-        901.5105840000033
+        1349.498374999981,
+        808.5232079999987,
+        810.7047080000048,
+        829.1289999999863
       ],
       "failedFirings": 0,
       "resumed": true,
       "resumeOk": true,
+      "resumeMs": 479,
       "check": {
         "ok": true,
         "violations": [],
@@ -1530,20 +1602,22 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "crash_on_send",
       "firingMs": [
-        1456.4805000000051,
-        905.0654170000053,
-        892.7622910000209,
-        899.4444999999832
+        1427.4949999999953,
+        810.6502080000064,
+        786.4459999999963,
+        807.281707999995
       ],
       "failedFirings": 0,
       "resumed": true,
       "resumeOk": true,
+      "resumeMs": 533,
       "check": {
         "ok": true,
         "violations": [],
@@ -1557,20 +1631,22 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "gated",
       "scenario": "crash_on_send",
       "firingMs": [
-        1468.235915999976,
-        891.7334169999813,
-        889.5134169999801,
-        918.6834590000217
+        1371.8614170000073,
+        802.5986249999842,
+        797.3055409999797,
+        791.0126670000027
       ],
       "failedFirings": 0,
       "resumed": true,
       "resumeOk": true,
+      "resumeMs": 490,
       "check": {
         "ok": true,
         "violations": [],
@@ -1584,259 +1660,17 @@
       "posts": 3,
       "maxPostsPerTask": 1,
       "classifications": 3,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": []
     },
     {
       "structure": "direct",
       "scenario": "poisoned_ledger",
       "firingMs": [
-        92.15233400001307,
-        96.77375000002212,
-        92.66420800000196,
-        95.03424999999697
-      ],
-      "failedFirings": 0,
-      "resumed": false,
-      "check": {
-        "ok": false,
-        "violations": [
-          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
-        ],
-        "attention": []
-      },
-      "statuses": [
-        "completed",
-        "completed"
-      ],
-      "posts": 2,
-      "maxPostsPerTask": 1,
-      "classifications": 2,
-      "unsafeDispatches": 1
-    },
-    {
-      "structure": "direct",
-      "scenario": "poisoned_ledger",
-      "firingMs": [
-        90.77683300001081,
-        97.26729099999648,
-        93.94033300000592,
-        92.30429199998616
-      ],
-      "failedFirings": 0,
-      "resumed": false,
-      "check": {
-        "ok": false,
-        "violations": [
-          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
-        ],
-        "attention": []
-      },
-      "statuses": [
-        "completed",
-        "completed"
-      ],
-      "posts": 2,
-      "maxPostsPerTask": 1,
-      "classifications": 2,
-      "unsafeDispatches": 1
-    },
-    {
-      "structure": "direct",
-      "scenario": "poisoned_ledger",
-      "firingMs": [
-        91.79166599997552,
-        95.00095899999724,
-        91.85358300001826,
-        88.27433299997938
-      ],
-      "failedFirings": 0,
-      "resumed": false,
-      "check": {
-        "ok": false,
-        "violations": [
-          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
-        ],
-        "attention": []
-      },
-      "statuses": [
-        "completed",
-        "completed"
-      ],
-      "posts": 2,
-      "maxPostsPerTask": 1,
-      "classifications": 2,
-      "unsafeDispatches": 1
-    },
-    {
-      "structure": "monolith",
-      "scenario": "poisoned_ledger",
-      "firingMs": [
-        548.698040999996,
-        487.5863750000135,
-        477.48500000001513,
-        478.16379099999904
-      ],
-      "failedFirings": 0,
-      "resumed": false,
-      "check": {
-        "ok": false,
-        "violations": [
-          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
-        ],
-        "attention": []
-      },
-      "statuses": [
-        "completed",
-        "completed"
-      ],
-      "posts": 2,
-      "maxPostsPerTask": 1,
-      "classifications": 2,
-      "unsafeDispatches": 1
-    },
-    {
-      "structure": "monolith",
-      "scenario": "poisoned_ledger",
-      "firingMs": [
-        552.3015829999931,
-        495.77449999999953,
-        475.59237500000745,
-        474.65066600000137
-      ],
-      "failedFirings": 0,
-      "resumed": false,
-      "check": {
-        "ok": false,
-        "violations": [
-          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
-        ],
-        "attention": []
-      },
-      "statuses": [
-        "completed",
-        "completed"
-      ],
-      "posts": 2,
-      "maxPostsPerTask": 1,
-      "classifications": 2,
-      "unsafeDispatches": 1
-    },
-    {
-      "structure": "monolith",
-      "scenario": "poisoned_ledger",
-      "firingMs": [
-        534.634625000006,
-        489.4379159999953,
-        493.15695799997775,
-        504.4823749999923
-      ],
-      "failedFirings": 0,
-      "resumed": false,
-      "check": {
-        "ok": false,
-        "violations": [
-          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
-        ],
-        "attention": []
-      },
-      "statuses": [
-        "completed",
-        "completed"
-      ],
-      "posts": 2,
-      "maxPostsPerTask": 1,
-      "classifications": 2,
-      "unsafeDispatches": 1
-    },
-    {
-      "structure": "phased",
-      "scenario": "poisoned_ledger",
-      "firingMs": [
-        843.0431250000256,
-        782.3062499999942,
-        725.1962079999794,
-        724.2131669999799
-      ],
-      "failedFirings": 0,
-      "resumed": false,
-      "check": {
-        "ok": false,
-        "violations": [
-          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
-        ],
-        "attention": []
-      },
-      "statuses": [
-        "completed",
-        "completed"
-      ],
-      "posts": 2,
-      "maxPostsPerTask": 1,
-      "classifications": 2,
-      "unsafeDispatches": 1
-    },
-    {
-      "structure": "phased",
-      "scenario": "poisoned_ledger",
-      "firingMs": [
-        831.1467089999933,
-        787.4149590000161,
-        742.474291999999,
-        738.2879170000087
-      ],
-      "failedFirings": 0,
-      "resumed": false,
-      "check": {
-        "ok": false,
-        "violations": [
-          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
-        ],
-        "attention": []
-      },
-      "statuses": [
-        "completed",
-        "completed"
-      ],
-      "posts": 2,
-      "maxPostsPerTask": 1,
-      "classifications": 2,
-      "unsafeDispatches": 1
-    },
-    {
-      "structure": "phased",
-      "scenario": "poisoned_ledger",
-      "firingMs": [
-        854.335167000012,
-        796.2633339999884,
-        739.6779589999933,
-        742.5571669999918
-      ],
-      "failedFirings": 0,
-      "resumed": false,
-      "check": {
-        "ok": false,
-        "violations": [
-          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
-        ],
-        "attention": []
-      },
-      "statuses": [
-        "completed",
-        "completed"
-      ],
-      "posts": 2,
-      "maxPostsPerTask": 1,
-      "classifications": 2,
-      "unsafeDispatches": 1
-    },
-    {
-      "structure": "gated",
-      "scenario": "poisoned_ledger",
-      "firingMs": [
-        1022.3608329999843,
-        768.1852919999801,
-        729.5084169999755,
-        732.4102089999942
+        88.28941600001417,
+        96.20108299999265,
+        88.43191600000137,
+        91.13320799998473
       ],
       "failedFirings": 3,
       "resumed": false,
@@ -1854,16 +1688,21 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 2,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": [
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n"
+      ]
     },
     {
-      "structure": "gated",
+      "structure": "direct",
       "scenario": "poisoned_ledger",
       "firingMs": [
-        1019.7374169999966,
-        777.3507500000123,
-        735.9645420000015,
-        873.984832999995
+        90.03608399999212,
+        90.79712499998277,
+        90.59962500000256,
+        90.39141700000619
       ],
       "failedFirings": 3,
       "resumed": false,
@@ -1881,16 +1720,21 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 2,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": [
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n"
+      ]
     },
     {
-      "structure": "gated",
+      "structure": "direct",
       "scenario": "poisoned_ledger",
       "firingMs": [
-        1055.9949999999953,
-        754.5282080000034,
-        744.6045830000076,
-        757.979250000004
+        89.43691600000602,
+        89.98399999999674,
+        89.43854199998896,
+        92.30637500001467
       ],
       "failedFirings": 3,
       "resumed": false,
@@ -1908,7 +1752,300 @@
       "posts": 1,
       "maxPostsPerTask": 1,
       "classifications": 2,
-      "unsafeDispatches": 0
+      "unsafeDispatches": 0,
+      "errors": [
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n"
+      ]
+    },
+    {
+      "structure": "monolith",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        554.1392909999995,
+        484.6587919999729,
+        476.5650000000023,
+        476.97200000000885
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B57NTABASJWMYHGYH673 --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows/runs/01M6X7B57NTABASJWMYHGYH673.sqlite3\nRUN 01M6X7B57NTABASJWMYHGYH673 failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B5PNE05J5X2C185VD6YY --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows/runs/01M6X7B5PNE05J5X2C185VD6YY.sqlite3\nRUN 01M6X7B5PNE05J5X2C185VD6YY failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B65GA79WR9QWN8ZBJ719 --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows/runs/01M6X7B65GA79WR9QWN8ZBJ719.sqlite3\nRUN 01M6X7B65GA79WR9QWN8ZBJ719 failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "monolith",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        550.3024589999986,
+        514.771625000023,
+        476.10887500000536,
+        476.6180410000088
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B75QWYMAGYQ6T4EQF2DH --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows/runs/01M6X7B75QWYMAGYQ6T4EQF2DH.sqlite3\nRUN 01M6X7B75QWYMAGYQ6T4EQF2DH failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B7NVGJNA5E8EMM4RVT0Q --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows/runs/01M6X7B7NVGJNA5E8EMM4RVT0Q.sqlite3\nRUN 01M6X7B7NVGJNA5E8EMM4RVT0Q failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B84RHXH59EA3T9S7ADC8 --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows/runs/01M6X7B84RHXH59EA3T9S7ADC8.sqlite3\nRUN 01M6X7B84RHXH59EA3T9S7ADC8 failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "monolith",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        544.5924999999988,
+        477.92512499997974,
+        476.59183399999165,
+        472.3907499999914
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B94PHYQQST6RZW398CYY --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows/runs/01M6X7B94PHYQQST6RZW398CYY.sqlite3\nRUN 01M6X7B94PHYQQST6RZW398CYY failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B9KN7X10QNQGMJ6VDKJK --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows/runs/01M6X7B9KN7X10QNQGMJ6VDKJK.sqlite3\nRUN 01M6X7B9KN7X10QNQGMJ6VDKJK failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BA2F1G7CNTMRMYZNQGTS --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows/runs/01M6X7BA2F1G7CNTMRMYZNQGTS.sqlite3\nRUN 01M6X7BA2F1G7CNTMRMYZNQGTS failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "phased",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        849.6477090000117,
+        720.9205829999992,
+        715.6611249999842,
+        900.8939580000006
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BBMMKNZ6P8GDP1SYAB9S --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows/runs/01M6X7BBMMKNZ6P8GDP1SYAB9S.sqlite3\nRUN 01M6X7BBMMKNZ6P8GDP1SYAB9S failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BCAZAD7NCJAWV53DXJKG --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows/runs/01M6X7BCAZAD7NCJAWV53DXJKG.sqlite3\nRUN 01M6X7BCAZAD7NCJAWV53DXJKG failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BD1KKAVNBTHWSB1FSTQS --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows/runs/01M6X7BD1KKAVNBTHWSB1FSTQS.sqlite3\nRUN 01M6X7BD1KKAVNBTHWSB1FSTQS failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "phased",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        843.9040830000013,
+        721.7478330000013,
+        707.2021659999737,
+        698.495957999985
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BES5BVPXGHF4PF0AVHXQ --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows/runs/01M6X7BES5BVPXGHF4PF0AVHXQ.sqlite3\nRUN 01M6X7BES5BVPXGHF4PF0AVHXQ failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BFF6PGV2MAJYRDERWW7J --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows/runs/01M6X7BFF6PGV2MAJYRDERWW7J.sqlite3\nRUN 01M6X7BFF6PGV2MAJYRDERWW7J failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BG53MD556PA7GHG9VT3Y --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows/runs/01M6X7BG53MD556PA7GHG9VT3Y.sqlite3\nRUN 01M6X7BG53MD556PA7GHG9VT3Y failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "phased",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        827.1210420000134,
+        716.7227090000233,
+        716.9902500000026,
+        711.2266670000099
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BHNHW3246ZCFD91YXSQP --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows/runs/01M6X7BHNHW3246ZCFD91YXSQP.sqlite3\nRUN 01M6X7BHNHW3246ZCFD91YXSQP failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BJBRJAXWDFYG2SQHWKH0 --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows/runs/01M6X7BJBRJAXWDFYG2SQHWKH0.sqlite3\nRUN 01M6X7BJBRJAXWDFYG2SQHWKH0 failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BK20F8WYFEHGWKC0Q5TX --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows/runs/01M6X7BK20F8WYFEHGWKC0Q5TX.sqlite3\nRUN 01M6X7BK20F8WYFEHGWKC0Q5TX failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "gated",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        916.6019160000142,
+        731.3425409999909,
+        1037.3097499999858,
+        714.7256669999915
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.10s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BMQF62H87B5Q14DGZ4S1 failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.28s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.13s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BNQXSSEFDME21QG2EDM9 failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.09s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BPE8M1EM5AYNN9ARTTYB failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "gated",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        913.3797499999928,
+        737.2100420000206,
+        721.2913750000007,
+        968.5972499999916
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.11s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BR1XWXXF57PQDRSMKH04 failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.09s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BRRGK45AK1C8NFRK8G5K failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.13s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BSPS52QN3H0ZJQY8Q6EC failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "gated",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        916.7161249999772,
+        728.0247500000114,
+        759.2327079999959,
+        862.6587500000023
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.10s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BVAA7R6YJ6E4JHG1JVSJ failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.09s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.11s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BW20ZK51Q8CC4KE0VVW5 failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.11s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.08s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BWWWFJ718HDYW2KY2JD4 failed completionReason: step_failed\n"
+      ]
     }
   ]
 }

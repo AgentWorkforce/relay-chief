@@ -257,6 +257,32 @@ test('a no-dispatch cycle reserves work without sending it', async () => {
   h.ledger.close();
 });
 
+test('dispatch halts on a ledger safety violation and keeps work reserved', async () => {
+  const h = harness();
+  const db = (h.ledger as unknown as { db: { prepare(sql: string): { run(...a: unknown[]): void } } }).db;
+  const first = await h.chief.observe(evidence());
+  const second = await h.chief.observe(evidence({ sessionId: 'session-2', workKey: 'issue-55', resourceKeys: ['issue-55'] }));
+  db.prepare("UPDATE tasks SET status='completed' WHERE id=?").run(first.taskId!);
+  await assert.rejects(h.chief.dispatchReserved(), /dispatch_halted/);
+  assert.equal(h.counts().sends, 0);
+  assert.equal(h.ledger.task(second.taskId!).status, 'reserved');
+  db.prepare('UPDATE tasks SET digest=? WHERE id=?').run('0'.repeat(64), second.taskId!);
+  assert.deepEqual(checkLedger(h.ledger, config()).violations, ['assignment_corrupt']);
+  h.ledger.close();
+});
+
+test('a lowered policy is surfaced without halting dispatch', async () => {
+  const h = harness();
+  await h.chief.observe(evidence());
+  await h.chief.observe(evidence({ sessionId: 'session-2', workKey: 'issue-55', resourceKeys: ['issue-55'] }));
+  const lowered = config();
+  lowered.policy.maxConcurrentTasks = 1;
+  const check = checkLedger(h.ledger, lowered);
+  assert.equal(check.ok, true);
+  assert.deepEqual(check.attention, ['over_capacity']);
+  h.ledger.close();
+});
+
 test('the ledger check reports tampering and surfaces uncertain sends without blocking', async () => {
   const h = harness({ relayError: true });
   const decision = await h.chief.observe(evidence());

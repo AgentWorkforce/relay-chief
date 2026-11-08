@@ -1,6 +1,9 @@
 // Seeded fault simulation over fake adapters. No network, cloud or model calls.
 import { strict as assert } from 'node:assert';
-import { test } from 'node:test';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { after, test } from 'node:test';
 import { Chief } from '../src/chief.js';
 import type { Assignment, EvidenceSource, Task } from '../src/contracts.js';
 import type { CyclePorts, Phase } from '../src/cycle.js';
@@ -15,8 +18,10 @@ function rng(seed: number): () => number {
   return () => { s = (s + 0x6d2b79f5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1);
     t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 }
-type Structure = 'monolith' | 'phased' | 'gated';
+type Structure = 'monolith' | 'phased';
 type Mutant = 'none' | 'replay_uncertain' | 'send_before_claim';
+const DIRECTORY = mkdtempSync(join(tmpdir(), 'relay-chief-sim-'));
+after(() => rmSync(DIRECTORY, { recursive: true, force: true }));
 const TERMINAL_KINDS = ['blocked', 'follow_up', 'overlap', 'no_action', 'uncertain'] as const;
 
 async function simulate(seed: number, structure: Structure, mutant: Mutant = 'none') {
@@ -24,15 +29,27 @@ async function simulate(seed: number, structure: Structure, mutant: Mutant = 'no
   const chance = (p: number) => random() < p;
   const base = config();
   const cfg = { ...base, policy: { ...base.policy, budgetMicros: 100_000_000, maxEvidenceAgeMs: 3_600_000 } };
-  const ledger = new Ledger(':memory:');
+  const path = join(DIRECTORY, `${seed}-${structure}-${mutant}.db`);
+  let crashingSend = false;
+  // A crash between the send and persisting its outcome leaves the task in `sending`.
+  const open = () => {
+    const opened = new Ledger(path);
+    const delivery = opened.delivery.bind(opened);
+    opened.delivery = (...args) => {
+      if (crashingSend) throw new Crash();
+      if (chance(0.05)) { crashingSend = true; crashes++; throw new Crash(); }
+      delivery(...args);
+    };
+    return opened;
+  };
+  let crashes = 0;
+  let ledger = open();
   let clock = NOW;
   const sends = new Map<string, number>();
   const breaches: string[] = [];
   const reports = new Map<string, { digest: string; next: number }>();
   let batch: ReturnType<typeof evidence>[] = [];
   let cursor = 0;
-  let halted = 0;
-  let crashes = 0;
   const sendOne = async (assignment: Assignment) => {
     const status = ledger.task(assignment.taskId).status;
     if (status !== 'sending') breaches.push(`send_without_claim:${status}`);
@@ -74,11 +91,11 @@ async function simulate(seed: number, structure: Structure, mutant: Mutant = 'no
   } } });
   // A crash at a phase boundary: committed ledger state survives and the process does not.
   const maybeCrash = () => { if (chance(0.08)) { crashes++; throw new Crash(); } };
-  const restart = () => { chief = makeChief(); };
+  // A restart reopens the file, so only committed state survives.
+  const restart = () => { crashingSend = false; ledger.close(); ledger = open(); chief = makeChief(); };
   const runFrom = async (start: number) => {
     for (let i = start; i < PHASES.length; i++) {
       const phase = PHASES[i] as Phase;
-      if (phase === 'dispatch' && structure === 'gated' && !checkLedger(ledger, cfg).ok) { halted++; continue; }
       if (phase === 'dispatch' && mutant === 'send_before_claim') {
         for (const task of ledger.tasks()) if (task.status === 'reserved') await sendOne(task.assignment);
       }
@@ -104,7 +121,7 @@ async function simulate(seed: number, structure: Structure, mutant: Mutant = 'no
   }
   for (const [id, count] of sends) if (count > 1) breaches.push(`duplicate_send:${id}`);
   const tasks = ledger.tasks();
-  const summary = { breaches, sends: [...sends.values()].reduce((a, b) => a + b, 0), halted, crashes,
+  const summary = { breaches, sends: [...sends.values()].reduce((a, b) => a + b, 0), crashes,
     tasks: tasks.length, completed: tasks.filter(t => t.status === 'completed').length,
     uncertain: tasks.filter(t => t.status === 'uncertain' || t.status === 'sending').length };
   ledger.close();
@@ -112,9 +129,9 @@ async function simulate(seed: number, structure: Structure, mutant: Mutant = 'no
 }
 const SEEDS = Array.from({ length: 200 }, (_, i) => i + 1);
 
-for (const structure of ['monolith', 'phased', 'gated'] as const) {
+for (const structure of ['monolith', 'phased'] as const) {
   test(`simulation: ${structure} holds every safety invariant across seeded faults`, async t => {
-    const totals = { sends: 0, crashes: 0, tasks: 0, completed: 0, uncertain: 0, halted: 0 };
+    const totals = { sends: 0, crashes: 0, tasks: 0, completed: 0, uncertain: 0 };
     for (const seed of SEEDS) {
       const r = await simulate(seed, structure);
       assert.deepEqual(r.breaches, [], `seed ${seed}`);
