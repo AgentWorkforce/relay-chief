@@ -19,18 +19,24 @@ export interface WorkspaceContext {
   organizationId: string;
   workspaceId: string;
 }
-export const projectSetupSchema = z.strictObject({
+const projectSetupFields = z.strictObject({
   requestId: z.string().uuid(),
   repositoryIds: z
     .array(z.string().regex(/^[0-9]+$/))
     .min(1)
     .max(100)
     .transform((ids) => [...new Set(ids)].sort()),
-  region: z.enum(["us-east-1", "us-west-2", "eu-west-1"]),
+  placement: z.string().regex(/^[a-z0-9][a-z0-9-]{0,39}$/),
   budgetDollars: z.number().min(1).max(10_000),
   maxConcurrentTasks: z.number().int().min(1).max(10),
   allowedActions: z.array(actionSchema).min(1).max(3),
 });
+/** Accepts the legacy `region` field until relay-webapp sends `placement`. */
+export const projectSetupSchema = z.preprocess((raw) => {
+  if (raw === null || typeof raw !== "object" || !("region" in raw)) return raw;
+  const { region, ...rest } = raw as Record<string, unknown>;
+  return "placement" in rest ? raw : { ...rest, placement: region };
+}, projectSetupFields);
 export interface ProjectRuntime {
   classifier: Classifier;
   relay: RelayTransport;
@@ -166,6 +172,10 @@ export class ProjectCoordinators {
   }
   private view(row: SetupRow) {
     const config = JSON.parse(row.config) as ChiefConfig;
+    const { compute } = JSON.parse(row.plan) as {
+      compute: { placement?: string; region?: string };
+    };
+    const placement = compute.placement ?? compute.region;
     const ledger = new Ledger(join(this.directory, `${row.id}.db`));
     try {
       return {
@@ -178,8 +188,9 @@ export class ProjectCoordinators {
         scanStatus: row.scan_state,
         createdAt: row.created_at,
         lastScanAt: row.last_scan,
-        region: (JSON.parse(row.plan) as ReturnType<typeof provisionPlan>)
-          .compute.region,
+        placement,
+        // Compatibility alias until relay-webapp reads `placement`.
+        region: placement,
         budgetDollars: config.policy.budgetMicros / 1_000_000,
         maxConcurrentTasks: config.policy.maxConcurrentTasks,
         allowedActions: config.policy.allowedActions,
@@ -200,7 +211,7 @@ export class ProjectCoordinators {
             label:
               this.mode === "local"
                 ? "Local runtime connected"
-                : "EC2 provisioning approved",
+                : "Host provisioning approved",
             complete: row.state === "ready",
           },
           { label: "Relay identity verified", complete: row.state === "ready" },
@@ -220,7 +231,7 @@ export class ProjectCoordinators {
       throw new SetupError(
         400,
         "invalid_setup",
-        "Check the project, repository, region and operating policy.",
+        "Check the project, repository, placement and operating policy.",
       );
     const input = parsed.data;
     const digest = hash(input);
@@ -287,8 +298,8 @@ export class ProjectCoordinators {
     const plan = provisionPlan({
       requestId: input.requestId,
       config,
-      region: input.region,
-      instanceType: "t4g.small",
+      placement: input.placement,
+      sizeClass: "small",
     });
     // The catalog read is asynchronous; claim every repository atomically afterwards.
     this.registry.exec("BEGIN IMMEDIATE");

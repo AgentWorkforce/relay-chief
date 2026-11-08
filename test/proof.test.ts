@@ -121,16 +121,16 @@ test('sum adds both positive and negative operands', () => { assert.equal(sum(2,
     return JSON.parse(result.stdout) as { tasks: { id: string; status: string }[]; decisions: { outcome: string }[]; reports: { processed: number } };
   };
   try {
-    const setup = { requestId: 'customer-setup-1', config: c, region: 'us-east-1', instanceType: 't4g.small' };
+    const setup = { requestId: 'customer-setup-1', config: c, placement: 'default', sizeClass: 'small' };
     const setupRequest = async () => (await fetch(`${base}/setup`, { method: 'POST', headers: {
       authorization: 'Bearer local-customer-token', 'content-type': 'application/json',
     }, body: JSON.stringify(setup) })).json() as Promise<ReturnType<typeof provisionPlan>>;
     const plan = await setupRequest();
     assert.deepEqual(await setupRequest(), plan);
-    assert.equal(plan.compute.tags['relay:chief-id'], c.chiefId);
+    assert.equal(plan.compute.labels['relay:chief-id'], c.chiefId);
     assert.equal(plan.runtime.implementationCapability, false);
     assert.deepEqual(plan.approvalRequired, ['deployment', 'iam', 'secret_bindings']);
-    t.diagnostic('Customer setup produces a stable, tagged EC2 plan; no AWS API is called.');
+    t.diagnostic('Customer setup produces a stable, labelled host plan; no cloud API is called.');
     const first = await cycle();
     assert.equal(first.tasks.length, 1);
     assert.equal(first.tasks[0]?.status, 'uncertain');
