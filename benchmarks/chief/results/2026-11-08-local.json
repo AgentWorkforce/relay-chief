@@ -1,0 +1,2051 @@
+{
+  "flowsVersion": "2.0.65",
+  "node": "v26.8.1",
+  "platform": "darwin-arm64",
+  "reps": 3,
+  "firings": 4,
+  "summary": [
+    {
+      "structure": "direct",
+      "trials": 18,
+      "duplicateSends": 0,
+      "safetyViolationsAtEnd": 0,
+      "wrongPostCount": 0,
+      "incomplete": 0,
+      "unsafeDispatchesAfterPoison": 0,
+      "resumeFailures": 0,
+      "firingMedianMs": 95,
+      "firingP95Ms": 108
+    },
+    {
+      "structure": "monolith",
+      "trials": 18,
+      "duplicateSends": 0,
+      "safetyViolationsAtEnd": 0,
+      "wrongPostCount": 0,
+      "incomplete": 0,
+      "unsafeDispatchesAfterPoison": 0,
+      "resumeFailures": 0,
+      "firingMedianMs": 525,
+      "firingP95Ms": 1282
+    },
+    {
+      "structure": "phased",
+      "trials": 18,
+      "duplicateSends": 0,
+      "safetyViolationsAtEnd": 0,
+      "wrongPostCount": 0,
+      "incomplete": 0,
+      "unsafeDispatchesAfterPoison": 0,
+      "resumeFailures": 0,
+      "firingMedianMs": 794,
+      "firingP95Ms": 938
+    },
+    {
+      "structure": "gated",
+      "trials": 18,
+      "duplicateSends": 0,
+      "safetyViolationsAtEnd": 0,
+      "wrongPostCount": 0,
+      "incomplete": 0,
+      "unsafeDispatchesAfterPoison": 0,
+      "resumeFailures": 0,
+      "firingMedianMs": 828,
+      "firingP95Ms": 1019
+    }
+  ],
+  "trials": [
+    {
+      "structure": "direct",
+      "scenario": "happy",
+      "firingMs": [
+        107.865084,
+        97.08508299999997,
+        90.98870899999997,
+        92.96775000000002
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "happy",
+      "firingMs": [
+        102.05954100000002,
+        97.36175000000003,
+        90.7695,
+        92.9760419999999
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "happy",
+      "firingMs": [
+        107.260625,
+        96.65729199999987,
+        87.72287499999993,
+        95.13208399999985
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "happy",
+      "firingMs": [
+        1282.4198340000003,
+        524.7382499999999,
+        702.2074160000002,
+        502.72358299999996
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "happy",
+      "firingMs": [
+        572.6080000000002,
+        519.0690829999994,
+        508.1722499999996,
+        508.73104200000034
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "happy",
+      "firingMs": [
+        578.6090829999994,
+        523.8411659999992,
+        526.1790409999994,
+        538.3529579999995
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "happy",
+      "firingMs": [
+        937.533958,
+        799.7749170000006,
+        794.3531660000008,
+        794.3981249999997
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "happy",
+      "firingMs": [
+        934.3459579999999,
+        813.466292000001,
+        794.6473339999993,
+        791.1109580000011
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "happy",
+      "firingMs": [
+        890.8860829999994,
+        737.4526669999996,
+        729.8481250000004,
+        759.4770410000019
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "happy",
+      "firingMs": [
+        1018.5331249999981,
+        843.8907500000023,
+        827.5175830000007,
+        828.987333000001
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "happy",
+      "firingMs": [
+        951.3298749999994,
+        828.8157919999976,
+        817.9485829999976,
+        819.1184170000015
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "happy",
+      "firingMs": [
+        929.6478329999991,
+        819.1869579999984,
+        813.710500000001,
+        822.7805000000008
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        97.56629199999952,
+        94.27733300000182,
+        87.58737499999916,
+        87.9577500000014
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        103.34520799999882,
+        92.24133399999846,
+        91.56645800000115,
+        92.67720800000097
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        110.50087500000154,
+        95.8974589999998,
+        93.56658299999981,
+        89.75324999999793
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        576.158958,
+        513.3180420000026,
+        496.34600000000137,
+        494.5482499999998
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        561.0462079999998,
+        498.32004099999904,
+        496.6646669999973,
+        496.17741599999863
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        564.1872090000033,
+        502.29145900000003,
+        494.27116699999897,
+        495.04116699999577
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        839.992416999994,
+        849.8104579999999,
+        731.4924580000006,
+        787.7099999999991
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        852.3440830000036,
+        737.6027909999975,
+        735.2013329999972,
+        779.0652499999997
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        849.7914999999994,
+        746.6115419999987,
+        742.1016670000026,
+        740.418875000003
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        1140.9853749999966,
+        822.7640000000029,
+        832.8596249999973,
+        1041.104499999994
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        932.5145410000041,
+        814.5459999999948,
+        818.8862920000029,
+        821.1675420000029
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        929.2583330000052,
+        820.5895830000009,
+        831.1717500000013,
+        822.4305840000015
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "lost_ack",
+      "firingMs": [
+        104.68599999999424,
+        95.63237500000105,
+        91.7925830000022,
+        90.56141699999716
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "lost_ack",
+      "firingMs": [
+        102.39824999999837,
+        100.35570900000312,
+        89.74725000000035,
+        89.58333300000231
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "lost_ack",
+      "firingMs": [
+        124.11416699999972,
+        163.1077079999959,
+        88.86558299999888,
+        87.45858399999997
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "lost_ack",
+      "firingMs": [
+        573.5354169999991,
+        500.7353329999969,
+        490.17279200000485,
+        497.22945900000195
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "lost_ack",
+      "firingMs": [
+        573.7686669999966,
+        506.9259999999995,
+        499.8454580000034,
+        501.94462499999645
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "lost_ack",
+      "firingMs": [
+        619.009791000004,
+        523.1861250000002,
+        498.6141669999997,
+        492.4574580000044
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "lost_ack",
+      "firingMs": [
+        854.8148749999964,
+        743.4747920000009,
+        738.2642090000008,
+        732.4581250000047
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "lost_ack",
+      "firingMs": [
+        855.0904999999912,
+        755.3535419999971,
+        739.7507920000062,
+        739.0636670000094
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "lost_ack",
+      "firingMs": [
+        855.4933750000055,
+        732.744000000006,
+        742.7633339999884,
+        763.541333000001
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "lost_ack",
+      "firingMs": [
+        933.2972909999953,
+        826.8983330000046,
+        1234.0476250000065,
+        829.3569169999973
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "lost_ack",
+      "firingMs": [
+        946.9588330000115,
+        825.2183340000047,
+        818.6815829999978,
+        1050.282124999998
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "lost_ack",
+      "firingMs": [
+        947.908208000008,
+        851.9362910000054,
+        831.4005419999885,
+        831.2045840000064
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        96.65829099999974,
+        93.91941699999734,
+        91.21524999999383,
+        89.86770799999067
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        92.41220799999428,
+        90.74545800000487,
+        93.04045900001074,
+        89.58095799999137
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        94.10170899999503,
+        91.14800000000105,
+        91.33254099999613,
+        89.26583299999766
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        558.2077089999948,
+        496.7032920000056,
+        495.1344160000008,
+        505.5179579999967
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        554.298833000008,
+        495.4842920000083,
+        497.44779100001324,
+        490.8727079999953
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        546.3099169999914,
+        485.1052079999936,
+        492.57145899999887,
+        629.823292000001
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        829.668875000003,
+        717.4762090000004,
+        724.7540000000008,
+        731.7700000000041
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        845.9912499999919,
+        742.7702920000011,
+        738.4412499999889,
+        742.8622920000053
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        841.0991249999934,
+        722.7632920000033,
+        718.4325830000016,
+        730.1297500000073
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        928.4608750000043,
+        820.6339589999989,
+        833.4771250000049,
+        831.8217920000025
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        926.2003340000083,
+        808.4489170000015,
+        806.7970420000056,
+        805.8151250000083
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        940.5380420000001,
+        818.8935409999976,
+        809.4043749999983,
+        824.9682919999905
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        88.71749999999884,
+        97.1744580000086,
+        90.9611670000013,
+        89.65758300000743
+      ],
+      "failedFirings": 1,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": [
+        ""
+      ]
+    },
+    {
+      "structure": "direct",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        89.10454200000095,
+        97.76650000001246,
+        93.74566700001014,
+        92.27283400000306
+      ],
+      "failedFirings": 1,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": [
+        ""
+      ]
+    },
+    {
+      "structure": "direct",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        91.27612500000396,
+        104.34387500000594,
+        94.94204199999513,
+        94.49283299999661
+      ],
+      "failedFirings": 1,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": [
+        ""
+      ]
+    },
+    {
+      "structure": "monolith",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1008.6545420000039,
+        513.4080419999955,
+        510.270583000005,
+        508.87545800000953
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "resumeMs": 460,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1005.5745000000024,
+        505.46870800000033,
+        515.5752919999941,
+        516.1237499999988
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "resumeMs": 468,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "monolith",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1020.2645419999899,
+        523.7192919999943,
+        505.3117910000001,
+        514.1161670000001
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "resumeMs": 477,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1303.7904160000035,
+        751.7926250000019,
+        784.1425840000011,
+        761.3248750000057
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "resumeMs": 481,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1317.6129999999976,
+        755.8135829999956,
+        748.0657499999943,
+        763.6856669999979
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "resumeMs": 482,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "phased",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1315.3562089999905,
+        769.7475419999973,
+        926.7747919999965,
+        729.6956250000076
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "resumeMs": 488,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1349.498374999981,
+        808.5232079999987,
+        810.7047080000048,
+        829.1289999999863
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "resumeMs": 479,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1427.4949999999953,
+        810.6502080000064,
+        786.4459999999963,
+        807.281707999995
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "resumeMs": 533,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "gated",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1371.8614170000073,
+        802.5986249999842,
+        797.3055409999797,
+        791.0126670000027
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "resumeMs": 490,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0,
+      "errors": []
+    },
+    {
+      "structure": "direct",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        88.28941600001417,
+        96.20108299999265,
+        88.43191600000137,
+        91.13320799998473
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n"
+      ]
+    },
+    {
+      "structure": "direct",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        90.03608399999212,
+        90.79712499998277,
+        90.59962500000256,
+        90.39141700000619
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n"
+      ]
+    },
+    {
+      "structure": "direct",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        89.43691600000602,
+        89.98399999999674,
+        89.43854199998896,
+        92.30637500001467
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n",
+        "501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/dist/cycle.js:31:40)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///private/tmp/claude-501/-Volumes-T7-AgentWorkforce-relay-chief/c981d826-0d04-4050-9dcf-26b65984fbcf/scratchpad/benchrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n"
+      ]
+    },
+    {
+      "structure": "monolith",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        554.1392909999995,
+        484.6587919999729,
+        476.5650000000023,
+        476.97200000000885
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B57NTABASJWMYHGYH673 --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows/runs/01M6X7B57NTABASJWMYHGYH673.sqlite3\nRUN 01M6X7B57NTABASJWMYHGYH673 failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B5PNE05J5X2C185VD6YY --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows/runs/01M6X7B5PNE05J5X2C185VD6YY.sqlite3\nRUN 01M6X7B5PNE05J5X2C185VD6YY failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B65GA79WR9QWN8ZBJ719 --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-XAshB2/flows/runs/01M6X7B65GA79WR9QWN8ZBJ719.sqlite3\nRUN 01M6X7B65GA79WR9QWN8ZBJ719 failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "monolith",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        550.3024589999986,
+        514.771625000023,
+        476.10887500000536,
+        476.6180410000088
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B75QWYMAGYQ6T4EQF2DH --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows/runs/01M6X7B75QWYMAGYQ6T4EQF2DH.sqlite3\nRUN 01M6X7B75QWYMAGYQ6T4EQF2DH failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B7NVGJNA5E8EMM4RVT0Q --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows/runs/01M6X7B7NVGJNA5E8EMM4RVT0Q.sqlite3\nRUN 01M6X7B7NVGJNA5E8EMM4RVT0Q failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B84RHXH59EA3T9S7ADC8 --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Keo4wW/flows/runs/01M6X7B84RHXH59EA3T9S7ADC8.sqlite3\nRUN 01M6X7B84RHXH59EA3T9S7ADC8 failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "monolith",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        544.5924999999988,
+        477.92512499997974,
+        476.59183399999165,
+        472.3907499999914
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B94PHYQQST6RZW398CYY --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows/runs/01M6X7B94PHYQQST6RZW398CYY.sqlite3\nRUN 01M6X7B94PHYQQST6RZW398CYY failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7B9KN7X10QNQGMJ6VDKJK --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows/runs/01M6X7B9KN7X10QNQGMJ6VDKJK.sqlite3\nRUN 01M6X7B9KN7X10QNQGMJ6VDKJK failed completionReason: step_failed\n",
+        "hrun/benchmarks/chief/fixture-cli.mjs:25:59\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BA2F1G7CNTMRMYZNQGTS --at run-1 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-Chl9Z4/flows/runs/01M6X7BA2F1G7CNTMRMYZNQGTS.sqlite3\nRUN 01M6X7BA2F1G7CNTMRMYZNQGTS failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "phased",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        849.6477090000117,
+        720.9205829999992,
+        715.6611249999842,
+        900.8939580000006
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BBMMKNZ6P8GDP1SYAB9S --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows/runs/01M6X7BBMMKNZ6P8GDP1SYAB9S.sqlite3\nRUN 01M6X7BBMMKNZ6P8GDP1SYAB9S failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BCAZAD7NCJAWV53DXJKG --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows/runs/01M6X7BCAZAD7NCJAWV53DXJKG.sqlite3\nRUN 01M6X7BCAZAD7NCJAWV53DXJKG failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BD1KKAVNBTHWSB1FSTQS --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-eapO5o/flows/runs/01M6X7BD1KKAVNBTHWSB1FSTQS.sqlite3\nRUN 01M6X7BD1KKAVNBTHWSB1FSTQS failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "phased",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        843.9040830000013,
+        721.7478330000013,
+        707.2021659999737,
+        698.495957999985
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BES5BVPXGHF4PF0AVHXQ --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows/runs/01M6X7BES5BVPXGHF4PF0AVHXQ.sqlite3\nRUN 01M6X7BES5BVPXGHF4PF0AVHXQ failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BFF6PGV2MAJYRDERWW7J --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows/runs/01M6X7BFF6PGV2MAJYRDERWW7J.sqlite3\nRUN 01M6X7BFF6PGV2MAJYRDERWW7J failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BG53MD556PA7GHG9VT3Y --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-OjUzIC/flows/runs/01M6X7BG53MD556PA7GHG9VT3Y.sqlite3\nRUN 01M6X7BG53MD556PA7GHG9VT3Y failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "phased",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        827.1210420000134,
+        716.7227090000233,
+        716.9902500000026,
+        711.2266670000099
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BHNHW3246ZCFD91YXSQP --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows/runs/01M6X7BHNHW3246ZCFD91YXSQP.sqlite3\nRUN 01M6X7BHNHW3246ZCFD91YXSQP failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BJBRJAXWDFYG2SQHWKH0 --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows/runs/01M6X7BJBRJAXWDFYG2SQHWKH0.sqlite3\nRUN 01M6X7BJBRJAXWDFYG2SQHWKH0 failed completionReason: step_failed\n",
+        "ader (node:internal/modules/run_main:101:5)\n\nNode.js v26.8.1\n\nInspect: flows replay 01M6X7BK20F8WYFEHGWKC0Q5TX --at run-4 --data-dir '/var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows'\nJournal: /var/folders/l7/1p99_dl16pj5xr4c87kn_pyw0000gn/T/chief-bench-n2ZWwE/flows/runs/01M6X7BK20F8WYFEHGWKC0Q5TX.sqlite3\nRUN 01M6X7BK20F8WYFEHGWKC0Q5TX failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "gated",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        916.6019160000142,
+        731.3425409999909,
+        1037.3097499999858,
+        714.7256669999915
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.10s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BMQF62H87B5Q14DGZ4S1 failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.28s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.13s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BNQXSSEFDME21QG2EDM9 failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.09s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BPE8M1EM5AYNN9ARTTYB failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "gated",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        913.3797499999928,
+        737.2100420000206,
+        721.2913750000007,
+        968.5972499999916
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.11s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BR1XWXXF57PQDRSMKH04 failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.09s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BRRGK45AK1C8NFRK8G5K failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.13s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BSPS52QN3H0ZJQY8Q6EC failed completionReason: step_failed\n"
+      ]
+    },
+    {
+      "structure": "gated",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        916.7161249999772,
+        728.0247500000114,
+        759.2327079999959,
+        862.6587500000023
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0,
+      "errors": [
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.10s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.07s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BVAA7R6YJ6E4JHG1JVSJ failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.09s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.11s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BW20ZK51Q8CC4KE0VVW5 failed completionReason: step_failed\n",
+        "un-3 (deterministic) 0.00s\n✓ run-3 (deterministic) 0.11s completionReason: success\n○ run-4 (deterministic) 0.00s\n✓ run-4 (deterministic) 0.08s completionReason: success\n○ run-4.gate (deterministic) 0.00s\n✗ run-4.gate (deterministic) 0.02s\nFAILED [gate_failed] step \"run-4\" failed its predicate gate: ledger safety invariants failed\nRUN 01M6X7BWWWFJ718HDYW2KY2JD4 failed completionReason: step_failed\n"
+      ]
+    }
+  ]
+}

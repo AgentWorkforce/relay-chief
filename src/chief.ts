@@ -1,6 +1,7 @@
 import type { AuthenticatedReport, ChiefConfig, Classifier, CompletionVerifier, Decision, EvidenceSource, RelayTransport, Task } from './contracts.js';
 import { chiefConfigSchema, classificationSchema, evidenceSchema, hash, reportSchema } from './contracts.js';
 import { Ledger } from './ledger.js';
+import { checkLedger } from './invariants.js';
 import { evaluate } from './policy.js';
 
 /** This runtime has no implementation agent, shell executor, repository writer or cloud client. */
@@ -72,6 +73,8 @@ export class Chief {
     return this.ledger.task(id);
   }
   async dispatchReserved(): Promise<Task[]> {
+    // Fail closed in code, so every path is protected and not only a flow with gates.
+    if (!checkLedger(this.ledger, this.config).ok) throw new Error('dispatch_halted');
     const tasks: Task[] = [];
     for (const task of this.ledger.tasks()) if (task.status === 'reserved') tasks.push(await this.dispatch(task.id));
     return tasks;

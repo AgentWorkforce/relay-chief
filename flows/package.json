@@ -1,0 +1,7 @@
+{
+  "name": "@agentworkforce/relay-chief-flows",
+  "private": true,
+  "type": "module",
+  "description": "Flows adapter for the Relay Chief cycle. Kept separate so the runtime has no Flows dependency.",
+  "dependencies": { "@relayflows/surface": "2.0.65", "relayflows": "2.0.65" }
+}

@@ -96,9 +96,11 @@ After the adapter routes and execution agents are integrated, an operator can ru
 ```sh
 node dist/cli.js run-once /etc/relay-chief/config.json /var/lib/relay-chief/chief.db --dispatch
 node dist/cli.js inspect /var/lib/relay-chief/chief.db
+node dist/cli.js check /etc/relay-chief/config.json /var/lib/relay-chief/chief.db
 ```
 
-`--dispatch` explicitly permits Relay assignments for that cycle. The runtime
+`--dispatch` explicitly permits Relay assignments for that cycle; without it a cycle
+reserves work and sends nothing. The runtime
 first reads reports, retries pending verification, scans evidence, and dispatches
 reserved work. It does not start a public server. Reference systemd units in
 [`deploy/`](deploy/) run it periodically with a private durable state directory.
@@ -138,4 +140,5 @@ allocation activation and budget-window rotation remain rollout integrations.
 This implementation uses the inspected Jev and Relay wire contracts directly.
 It does not require a Flows installation or claim Flows journal semantics. A
 Flows adapter can use these same ports; its permissions and recovery behavior
-must be independently qualified before replacing this ledger.
+must be independently qualified before replacing this ledger. See
+[the Flows-backed cycle](docs/flows.md) for the proposed split and benchmark results.
