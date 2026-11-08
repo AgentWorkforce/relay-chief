@@ -300,7 +300,7 @@ test('the ledger check reports tampering and surfaces uncertain sends without bl
 test('an assignment is registered before its send, and a failed registration sends nothing', async () => {
   const base = harness();
   const order: string[] = [];
-  let failures = 1;
+  let failures = 2;
   const chief = new Chief(config(), base.ledger, { now: () => NOW,
     classifier: { classify: async () => ({ kind: 'blocked', confidence: 0.99 }) },
     verifier: { verify: async () => ({ ok: true, checks: ['check@rev'] }) },
@@ -310,10 +310,13 @@ test('an assignment is registered before its send, and a failed registration sen
   const blocked = await chief.dispatch(taskId!);
   assert.equal(blocked.status, 'reserved');
   await chief.dispatch(taskId!);
-  assert.equal(base.ledger.task(taskId!).status, 'delivered');
-  assert.deepEqual(order, [`register:${blocked.digest}`, `register:${blocked.digest}`, 'send']);
+  assert.equal(base.ledger.task(taskId!).status, 'reserved');
   await chief.dispatch(taskId!);
-  assert.equal(order.length, 3, 'a sent task is neither registered nor sent again');
+  assert.equal(base.ledger.task(taskId!).status, 'delivered');
+  const registered = `register:${blocked.digest}`;
+  assert.deepEqual(order, [registered, registered, registered, 'send']);
+  await chief.dispatch(taskId!);
+  assert.equal(order.length, 4, 'a sent task is neither registered nor sent again');
   assert.equal(base.ledger.decisions().filter(d => d.reason === 'assignment_registration_failed').length, 1);
   base.ledger.close();
 });

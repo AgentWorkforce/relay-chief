@@ -131,5 +131,7 @@ Chief's hosted API lives in its own service,
 `relay-control` runs complete without the add-on. It is in progress and not deployed.
 
 The chief calls three routes there, defined in [the contracts](contracts.md): evidence,
-assignment registration and verification. Evidence and verification return 503 until
-a GitHub-backed authority exists, so a chief cannot complete work against it yet.
+assignment registration and verification. Older docs call the control plane
+`relaycontrol`; that is `relay-control`, which no longer hosts these routes. Evidence
+and verification have no working authority yet, so a chief cannot complete work
+against this service.

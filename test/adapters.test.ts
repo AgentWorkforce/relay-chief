@@ -211,10 +211,11 @@ test('assignment registration sends the exact digest and treats a conflict as fa
   const client = new ControlPlaneClient({ baseUrl: 'https://control.example', token: 'tok', config: c,
     fetch: (async (url: URL, init: RequestInit) => { calls.push({ url: String(url), init }); return new Response('{}', { status }); }) as typeof fetch });
   const assignment = { taskId: 'task/1' } as Assignment;
-  await client.register(assignment, 'digest-1');
+  const digest = hash(assignment);
+  await client.register(assignment, digest);
   assert.equal(calls[0]?.url, 'https://control.example/chief/v1/projects/project-1/tasks/task%2F1/assignment');
   assert.equal(calls[0]?.init.method, 'PUT');
-  assert.deepEqual(JSON.parse(String(calls[0]?.init.body)), { assignmentDigest: 'digest-1', assignment });
+  assert.deepEqual(JSON.parse(String(calls[0]?.init.body)), { assignmentDigest: digest, assignment });
   status = 409;
-  await assert.rejects(client.register(assignment, 'digest-2'));
+  await assert.rejects(client.register(assignment, hash({ taskId: 'task/2' })));
 });

@@ -1,6 +1,6 @@
 # Hosted adapter and worker contracts
 
-These contracts are implemented by the chief's clients. Cloud / relaycontrol must
+These contracts are implemented by the chief's clients. `relaychief-control` must
 implement the server side and mount them behind their existing tenant auth.
 They are not public, unauthenticated routes. There is no host-admin API here.
 
@@ -71,7 +71,9 @@ The caller persists decisions and deferred evidence before checkpointing it.
 Use the same scoped control-plane credential. The body is
 `{ "assignmentDigest": "...", "assignment": { ... } }`, where the digest is `hash()` of
 the exact stored `Assignment`. An identical replay succeeds; a different digest for the
-same task is refused and never overwrites.
+same task is refused and never overwrites. Success is a 200 or 201 with a JSON body. A
+registered assignment whose task is later canceled stays on record and has no effect,
+because verification only runs against a worker report.
 
 The chief registers before it claims the send. A registration failure leaves the task
 `reserved` with nothing sent, and a later cycle retries. Registering first means a

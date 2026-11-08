@@ -130,7 +130,9 @@ export class Ledger {
   }
   /** Records a repeating condition once, so a stuck task cannot grow the table every cycle. */
   recordOnce(decision: Decision, now: number): void {
-    if (!this.db.prepare('SELECT 1 FROM decisions WHERE body=? LIMIT 1').get(canonical(decision))) this.record(decision, now);
+    this.transaction(() => {
+      if (!this.db.prepare('SELECT 1 FROM decisions WHERE body=? LIMIT 1').get(canonical(decision))) this.record(decision, now);
+    });
   }
   decisions(): Decision[] {
     return (this.db.prepare('SELECT body FROM decisions ORDER BY id').all() as Row[]).map(r => JSON.parse(r.body as string) as Decision);
