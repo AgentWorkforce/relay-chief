@@ -1,7 +1,7 @@
 {
   "requestId": "customer-setup-1",
-  "region": "us-east-1",
-  "instanceType": "t4g.small",
+  "placement": "default",
+  "sizeClass": "small",
   "config": {
     "revision": 1,
     "chiefId": "chief-demo",

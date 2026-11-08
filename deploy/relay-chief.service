@@ -5,13 +5,15 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
+# Reserves work and sends nothing by default. To dispatch, add a drop-in with
+# Environment=RELAY_CHIEF_RUN_FLAGS=--dispatch only once the execution bridge exists.
 User=relay-chief
 Group=relay-chief
 StateDirectory=relay-chief
 StateDirectoryMode=0700
 WorkingDirectory=/var/lib/relay-chief
 EnvironmentFile=/run/relay-chief/credentials.env
-ExecStart=/usr/bin/node /opt/relay-chief/dist/cli.js run-once /etc/relay-chief/config.json /var/lib/relay-chief/chief.db --dispatch
+ExecStart=/usr/bin/node /opt/relay-chief/dist/cli.js run-once /etc/relay-chief/config.json /var/lib/relay-chief/chief.db $RELAY_CHIEF_RUN_FLAGS
 TimeoutStartSec=120
 UMask=0077
 NoNewPrivileges=true

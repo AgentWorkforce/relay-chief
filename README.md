@@ -1,7 +1,7 @@
 # Relay Chief
 
 A persistent project coordinator that delegates through Agent Relay. Customers
-will configure a chief through Cloud / relaycontrol / relay-app; a dedicated EC2
+will configure a chief through Cloud / relaycontrol / relay-app; a dedicated
 host runs the same runtime provided here. The chief observes project evidence,
 classifies findings, applies deterministic policy and ownership gates, and sends
 bounded assignments to execution agents. It never implements customer changes.
@@ -9,7 +9,7 @@ bounded assignments to execution agents. It never implements customer changes.
 **Current status:** the coordinator core, HTTP adapters, provisioning plan,
 worker protocol, accounting ledger and local integration proof are implemented.
 The setup UI and authenticated gateway are integrated in the sibling `relay-app`
-and `relaycontrol` repos for local validation. Managed EC2 provisioning, deployed
+and `relaycontrol` repos for local validation. Managed host provisioning, deployed
 worker integration and live provider qualification remain rollout requirements.
 This repo does not deploy infrastructure. See [customer readiness](docs/readiness.md)
 and [running the integrated application](docs/local-application.md).
@@ -72,7 +72,7 @@ node dist/cli.js --help
 node dist/cli.js plan examples/setup.json
 ```
 
-`plan` emits reviewable desired state, allocation tags, credential binding names
+`plan` emits reviewable desired state, allocation labels, credential binding names
 and readiness checks. It makes no cloud calls and grants no authority to deploy.
 
 Copy [the example configuration](examples/chief.config.json), replacing identifiers
@@ -100,7 +100,8 @@ node dist/cli.js check /etc/relay-chief/config.json /var/lib/relay-chief/chief.d
 ```
 
 `--dispatch` explicitly permits Relay assignments for that cycle; without it a cycle
-reserves work and sends nothing. The runtime
+reserves work and sends nothing. The reference systemd unit runs without it; dispatch needs
+`Environment=RELAY_CHIEF_RUN_FLAGS=--dispatch` in a drop-in. The runtime
 first reads reports, retries pending verification, scans evidence, and dispatches
 reserved work. It does not start a public server. Reference systemd units in
 [`deploy/`](deploy/) run it periodically with a private durable state directory.
@@ -116,7 +117,7 @@ routes already exist in Cloud or relaycontrol.
 ## Accounting
 
 An application-owned `chiefId` survives host replacement. The provisioning plan
-tags EC2 resources with chief, organization, workspace and project IDs. Provider
+labels host resources with chief, organization, workspace and project IDs. Provider
 API identities can be mapped to the same chief and task IDs in the accounting
 ledger. `ledger.usage()` accepts idempotent, scoped events from a trusted billing
 collector; duplicate identities with conflicting amounts are refused.

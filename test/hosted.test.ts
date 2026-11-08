@@ -7,6 +7,7 @@ import { test } from "node:test";
 import {
   ProjectCoordinators,
   type ProjectRuntimeFactory,
+  projectSetupSchema,
 } from "../src/hosted.js";
 import { evidence } from "./helpers.js";
 
@@ -266,4 +267,10 @@ test("a repository rename retains its immutable ID claim; disconnected discovery
     await backend.close();
     rmSync(dir, { recursive: true, force: true });
   }
+});
+
+test('setup accepts placement and the legacy region alias identically', () => {
+  const base = { requestId: '11111111-1111-4111-8111-111111111111', repositoryIds: ['1'], budgetDollars: 10, maxConcurrentTasks: 1, allowedActions: ['investigate'] };
+  assert.deepEqual(projectSetupSchema.parse({ ...base, region: 'us-east-1' }), projectSetupSchema.parse({ ...base, placement: 'us-east-1' }));
+  assert.throws(() => projectSetupSchema.parse({ ...base, placement: 'US EAST' }));
 });

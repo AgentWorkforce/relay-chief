@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
 import { ControlPlaneClient } from '../src/control-plane.js';
@@ -107,11 +108,12 @@ test('execution-side protocol refuses wrong principals, changed scope, stale evi
 });
 
 test('setup plans are deterministic and contain resource tags, references to credentials and explicit rollout gates', () => {
-  const request = { requestId: 'setup-1', config: config(), region: 'us-east-1', instanceType: 't4g.small' };
+  const request = { requestId: 'setup-1', config: config(), placement: 'default', sizeClass: 'small' };
   const plan = provisionPlan(request);
   assert.deepEqual(provisionPlan(request), plan);
-  assert.equal(plan.compute.publicIp, false);
-  assert.equal(plan.compute.tags['relay:chief-id'], 'chief-1');
+  assert.equal(plan.compute.publicAccess, false);
+  assert.equal(plan.compute.hostCredentialIsolation, 'required');
+  assert.equal(plan.compute.labels['relay:chief-id'], 'chief-1');
   assert.equal(plan.runtime.implementationCapability, false);
   assert.ok(plan.approvalRequired.includes('iam'));
   assert.throws(() => provisionPlan({ ...request, config: { ...config(), token: 'secret' } }));
@@ -186,4 +188,17 @@ test('report polling drains descending pages oldest first without skipping a ful
   assert.equal(h.counts().verifications, 1);
   assert.deepEqual(await relay.poll(h.chief), { processed: 0, rejected: 0 });
   h.ledger.close();
+});
+
+test('the reference systemd unit does not dispatch by default', () => {
+  const unit = readFileSync('deploy/relay-chief.service', 'utf8');
+  const exec = unit.split('\n').find(line => line.startsWith('ExecStart='));
+  assert.ok(exec?.endsWith('$RELAY_CHIEF_RUN_FLAGS'));
+  assert.ok(!exec?.includes('--dispatch'));
+});
+
+test('the provisioning contract names no cloud', () => {
+  const plan = JSON.stringify(provisionPlan({ requestId: 'setup-1', config: config(), placement: 'default', sizeClass: 'small' }));
+  assert.doesNotMatch(plan, /ec2|aws|t4g|arm64|metadataTokens/i);
+  assert.throws(() => provisionPlan({ requestId: 'setup-1', config: config(), region: 'us-east-1', instanceType: 't4g.small' }));
 });
