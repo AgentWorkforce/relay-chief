@@ -84,7 +84,8 @@ affected work stays `reserved`. Run `relay-chief check` to see why.
 what it can catch and not how often that happens. Latency comes from 12 firings per
 structure on one macOS host with Node 26, while production targets Node 24. Workers
 are simulated, and the cycle has no model step. A separate seeded simulation
-(`test/simulation.test.ts`) covers 200 fault sequences per structure, reopens a
+(`test/simulation.test.ts`) covers 200 fault sequences each for `monolith` and
+`phased` phase orderings, reopens a
 file-backed ledger after each crash, and includes broken variants that the oracle must
 catch.
 
