@@ -73,9 +73,11 @@ Use the same scoped control-plane credential. The body is
 the exact stored `Assignment`. An identical replay succeeds; a different digest for the
 same task is refused and never overwrites.
 
-The chief registers before it claims the send. Any failure leaves the task `reserved`
-with nothing sent, and a later cycle retries. Registering first means a failure can
-never strand a task in `sending`, which is never retried.
+The chief registers before it claims the send. A registration failure leaves the task
+`reserved` with nothing sent, and a later cycle retries. Registering first means a
+registration failure can never strand a task in `sending`. Failures after the claim
+are different: a crash or lost response during the send leaves `sending` or `uncertain`,
+and those are never retried.
 
 ## Relay assignments
 
