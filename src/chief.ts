@@ -1,4 +1,4 @@
-import type { AuthenticatedReport, ChiefConfig, Classifier, CompletionVerifier, Decision, EvidenceSource, RelayTransport, Task } from './contracts.js';
+import type { AssignmentRegistry, AuthenticatedReport, ChiefConfig, Classifier, CompletionVerifier, Decision, EvidenceSource, RelayTransport, Task } from './contracts.js';
 import { chiefConfigSchema, classificationSchema, evidenceSchema, hash, reportSchema } from './contracts.js';
 import { Ledger } from './ledger.js';
 import { checkLedger } from './invariants.js';
@@ -12,6 +12,8 @@ export class Chief {
     classifier: Classifier;
     relay: RelayTransport;
     verifier: CompletionVerifier;
+    /** When set, an assignment must be registered before it can be claimed or sent. */
+    assignments?: AssignmentRegistry;
     now?: () => number;
   };
   constructor(config: ChiefConfig, ledger: Ledger, ports: Chief['ports']) {
@@ -59,6 +61,16 @@ export class Chief {
     const identity = await this.ports.relay.identity();
     if (identity.callerId !== this.config.relayCallerId || identity.workspaceId !== this.config.workspaceId) throw new Error('relay_scope_mismatch');
     this.ledger.bindRelay(identity);
+    // Before the claim: registration is idempotent, so a failure leaves the task reserved and safe to retry.
+    const pending = this.ledger.task(id);
+    if (this.ports.assignments && pending.status === 'reserved') {
+      try { await this.ports.assignments.register(pending.assignment, pending.digest); }
+      catch {
+        this.ledger.recordOnce({ evidenceDigest: pending.assignment.evidenceDigest, kind: 'uncertain', outcome: 'deferred',
+          reason: 'assignment_registration_failed', taskId: id }, this.now());
+        return pending;
+      }
+    }
     const claimed = this.ledger.claimSend(this.config, id, this.now());
     if (claimed) {
       try {

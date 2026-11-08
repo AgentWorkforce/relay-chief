@@ -1,3 +1,4 @@
+import type { Assignment } from '../src/contracts.js';
 import { readFileSync } from 'node:fs';
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
@@ -201,4 +202,19 @@ test('the provisioning contract names no cloud', () => {
   const plan = JSON.stringify(provisionPlan({ requestId: 'setup-1', config: config(), placement: 'default', sizeClass: 'small' }));
   assert.doesNotMatch(plan, /ec2|aws|t4g|arm64|metadataTokens/i);
   assert.throws(() => provisionPlan({ requestId: 'setup-1', config: config(), region: 'us-east-1', instanceType: 't4g.small' }));
+});
+
+test('assignment registration sends the exact digest and treats a conflict as failure', async () => {
+  const c = config();
+  const calls: { url: string; init: RequestInit }[] = [];
+  let status = 201;
+  const client = new ControlPlaneClient({ baseUrl: 'https://control.example', token: 'tok', config: c,
+    fetch: (async (url: URL, init: RequestInit) => { calls.push({ url: String(url), init }); return new Response('{}', { status }); }) as typeof fetch });
+  const assignment = { taskId: 'task/1' } as Assignment;
+  await client.register(assignment, 'digest-1');
+  assert.equal(calls[0]?.url, 'https://control.example/chief/v1/projects/project-1/tasks/task%2F1/assignment');
+  assert.equal(calls[0]?.init.method, 'PUT');
+  assert.deepEqual(JSON.parse(String(calls[0]?.init.body)), { assignmentDigest: 'digest-1', assignment });
+  status = 409;
+  await assert.rejects(client.register(assignment, 'digest-2'));
 });

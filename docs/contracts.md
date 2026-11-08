@@ -64,6 +64,19 @@ missing updates. Repeating a source/session/version with different contents is a
 contract failure. Repeated evidence is safe. An empty page still returns a cursor.
 The caller persists decisions and deferred evidence before checkpointing it.
 
+## Assignment registration
+
+`PUT /chief/v1/projects/:projectId/tasks/:taskId/assignment`
+
+Use the same scoped control-plane credential. The body is
+`{ "assignmentDigest": "...", "assignment": { ... } }`, where the digest is `hash()` of
+the exact stored `Assignment`. An identical replay succeeds; a different digest for the
+same task is refused and never overwrites.
+
+The chief registers before it claims the send. Any failure leaves the task `reserved`
+with nothing sent, and a later cycle retries. Registering first means a failure can
+never strand a task in `sending`, which is never retried.
+
 ## Relay assignments
 
 The client resolves `GET /v1/agent`, pins origin/workspace/caller, then issues one
