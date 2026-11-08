@@ -116,8 +116,9 @@ completion, and it held with the worker's gate removed. The worker's gate gives 
 right outcome faster: `needs_attention` straight away instead of work left awaiting
 verification.
 
-**Limits.** This is one agent, one small task and one injection string, 12 model runs
-in total. An agent timeout was not exercised; the failure case is a CLI that cannot
+**Limits.** This is one agent, one small task and one injection string: 15 trials, 12
+of which called the model. The benchmark worker does not retry a report that fails to
+deliver, which a production executor must do. An agent timeout was not exercised; the failure case is a CLI that cannot
 start, and Flows marks that worker run as refused even though the report is delivered. The injection result also depends on the worker's prompt, which marks evidence
 as untrusted data, so it is not a general claim about resisting injection. Flows does
 not enforce the agent's declared permissions, and the agent ran with no sandbox beyond
