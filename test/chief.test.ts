@@ -5,6 +5,8 @@ import { join } from 'node:path';
 import { test } from 'node:test';
 import { Ledger } from '../src/ledger.js';
 import { chiefConfigSchema } from '../src/contracts.js';
+import { runCycle } from '../src/cycle.js';
+import { checkLedger } from '../src/invariants.js';
 import { config, evidence, harness, NOW, report } from './helpers.js';
 
 test('a delivery is not acceptance; authenticated reports and authoritative checks complete work', async () => {
@@ -240,4 +242,30 @@ test('read-only inspection cannot create a missing database or modify an existin
     assert.throws(() => reader.configure(config()), /readonly/);
     assert.equal(h.ledger.tasks().length, 1);
   } finally { reader.close(); h.ledger.close(); rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('a no-dispatch cycle reserves work without sending it', async () => {
+  const h = harness();
+  const ports = { chief: h.chief, reports: { poll: async () => ({ processed: 0, rejected: 0 }) },
+    source: { id: 'project-sessions-v1', read: async () => ({ cursor: 'page-1', evidence: [evidence()] }) } };
+  const result = await runCycle(ports, { dispatch: false });
+  assert.equal(result.dispatched, undefined);
+  assert.equal(h.counts().sends, 0);
+  assert.equal(h.ledger.tasks()[0]?.status, 'reserved');
+  assert.equal((await runCycle({ ...ports, source: { ...ports.source, read: async () => ({ cursor: 'page-2', evidence: [] }) } }, { dispatch: true })).dispatched?.[0]?.status, 'delivered');
+  assert.equal(h.counts().sends, 1);
+  h.ledger.close();
+});
+
+test('the ledger check reports tampering and surfaces uncertain sends without blocking', async () => {
+  const h = harness({ relayError: true });
+  const decision = await h.chief.observe(evidence());
+  const task = await h.chief.dispatch(decision.taskId!);
+  const clean = checkLedger(h.ledger, config());
+  assert.equal(clean.ok, true);
+  assert.deepEqual(clean.attention, [`delivery_uncertain:${task.id}`]);
+  (h.ledger as unknown as { db: { prepare(sql: string): { run(...a: unknown[]): void } } }).db
+    .prepare("UPDATE tasks SET status='completed' WHERE id=?").run(task.id);
+  assert.deepEqual(checkLedger(h.ledger, config()).violations, [`completed_without_verification:${task.id}`]);
+  h.ledger.close();
 });

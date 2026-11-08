@@ -1,0 +1,1914 @@
+{
+  "flowsVersion": "2.0.65",
+  "reps": 3,
+  "firings": 4,
+  "summary": [
+    {
+      "structure": "direct",
+      "trials": 18,
+      "duplicateSends": 0,
+      "safetyViolationsAtEnd": 0,
+      "wrongPostCount": 0,
+      "incomplete": 0,
+      "unsafeDispatchesAfterPoison": 3,
+      "resumeFailures": 0,
+      "firingMedianMs": 95,
+      "firingP95Ms": 106
+    },
+    {
+      "structure": "monolith",
+      "trials": 18,
+      "duplicateSends": 0,
+      "safetyViolationsAtEnd": 0,
+      "wrongPostCount": 0,
+      "incomplete": 0,
+      "unsafeDispatchesAfterPoison": 3,
+      "resumeFailures": 0,
+      "firingMedianMs": 506,
+      "firingP95Ms": 572
+    },
+    {
+      "structure": "phased",
+      "trials": 18,
+      "duplicateSends": 0,
+      "safetyViolationsAtEnd": 0,
+      "wrongPostCount": 0,
+      "incomplete": 0,
+      "unsafeDispatchesAfterPoison": 3,
+      "resumeFailures": 0,
+      "firingMedianMs": 744,
+      "firingP95Ms": 851
+    },
+    {
+      "structure": "gated",
+      "trials": 18,
+      "duplicateSends": 0,
+      "safetyViolationsAtEnd": 0,
+      "wrongPostCount": 0,
+      "incomplete": 0,
+      "unsafeDispatchesAfterPoison": 0,
+      "resumeFailures": 0,
+      "firingMedianMs": 910,
+      "firingP95Ms": 1020
+    }
+  ],
+  "trials": [
+    {
+      "structure": "direct",
+      "scenario": "happy",
+      "firingMs": [
+        105.66637500000002,
+        96.31699999999998,
+        90.85725000000002,
+        91.70554199999998
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "happy",
+      "firingMs": [
+        106.08350000000002,
+        99.50312499999995,
+        89.59775000000002,
+        87.87725
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "happy",
+      "firingMs": [
+        106.43308400000001,
+        96.52787499999988,
+        94.58162500000003,
+        91.99212499999999
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "happy",
+      "firingMs": [
+        571.9348339999999,
+        515.7218330000001,
+        499.71404200000006,
+        504.8442500000001
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "happy",
+      "firingMs": [
+        568.1421249999999,
+        501.1091250000004,
+        501.08849999999984,
+        500.594333
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "happy",
+      "firingMs": [
+        563.5554589999992,
+        505.74275000000034,
+        513.2205000000004,
+        516.5344169999998
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "happy",
+      "firingMs": [
+        847.6850419999992,
+        740.8188329999994,
+        731.3448749999989,
+        726.9009160000005
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "happy",
+      "firingMs": [
+        850.6976250000007,
+        743.8295829999988,
+        737.1659170000003,
+        744.1404170000005
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "happy",
+      "firingMs": [
+        850.6372089999986,
+        740.0489170000001,
+        752.9654169999994,
+        745.2261670000007
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "happy",
+      "firingMs": [
+        1012.1695,
+        909.9486250000009,
+        905.4922920000026,
+        896.3088749999988
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "happy",
+      "firingMs": [
+        1020.2137909999983,
+        894.3186249999999,
+        909.3626250000016,
+        906.6361250000009
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "happy",
+      "firingMs": [
+        1017.8114169999972,
+        926.9459170000009,
+        988.6144590000004,
+        912.0426669999979
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        100.35516699999789,
+        98.749791000002,
+        91.89679199999955,
+        88.35041600000113
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        108.00995799999873,
+        101.71487500000148,
+        91.37183300000106,
+        89.86058400000184
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        99.4308749999982,
+        94.69225000000006,
+        89.33649999999761,
+        92.42895900000076
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        565.8487920000007,
+        504.57050000000163,
+        506.1402500000004,
+        503.8482920000024
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        584.4001250000001,
+        503.14504099999976,
+        503.5589169999985,
+        522.0673749999987
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        725.2788330000039,
+        502.7224999999962,
+        496.3207919999986,
+        491.97079099999974
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        858.366915999999,
+        735.4694170000002,
+        745.370084000002,
+        737.3165840000001
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        847.5109589999993,
+        730.2483330000032,
+        971.6715419999964,
+        747.5734579999989
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        860.835291000003,
+        731.0367079999996,
+        757.1418750000012,
+        711.1574580000015
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        988.0439159999951,
+        896.2736249999944,
+        942.1125830000019,
+        947.008332999998
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        1025.2984999999971,
+        907.2771670000002,
+        941.2484590000022,
+        993.2504169999957
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "duplicate_evidence",
+      "firingMs": [
+        1032.9663340000043,
+        918.9492920000048,
+        927.6710000000021,
+        976.7957500000048
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "lost_ack",
+      "firingMs": [
+        104.82862500000192,
+        97.29125000000204,
+        90.22708299999795,
+        88.73633400000108
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "lost_ack",
+      "firingMs": [
+        104.80187500000466,
+        96.45995799999946,
+        90.86679100000038,
+        92.50012500000594
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "lost_ack",
+      "firingMs": [
+        106.04075000000012,
+        90.97387500000332,
+        91.1415829999969,
+        89.8995419999992
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "lost_ack",
+      "firingMs": [
+        572.117250000003,
+        503.7638330000045,
+        502.1100409999999,
+        491.27475000000413
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "lost_ack",
+      "firingMs": [
+        574.1868749999994,
+        507.22183300000324,
+        496.38691599999584,
+        495.8035000000018
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "lost_ack",
+      "firingMs": [
+        570.9825829999972,
+        497.18624999999884,
+        509.874834000002,
+        508.6678329999995
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "lost_ack",
+      "firingMs": [
+        961.0365420000016,
+        735.6582919999928,
+        724.0525409999973,
+        734.0124589999905
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "lost_ack",
+      "firingMs": [
+        854.6122500000056,
+        731.9845420000056,
+        726.6582079999935,
+        729.4854590000032
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "lost_ack",
+      "firingMs": [
+        852.2610419999983,
+        758.929375000007,
+        739.4839999999967,
+        745.4406670000026
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "lost_ack",
+      "firingMs": [
+        1175.3595829999977,
+        885.1547920000012,
+        1052.479124999998,
+        868.8258330000099
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "lost_ack",
+      "firingMs": [
+        983.7514579999988,
+        874.1105830000015,
+        885.598582999999,
+        890.5400420000078
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "lost_ack",
+      "firingMs": [
+        987.8731669999979,
+        889.3295420000068,
+        900.2310839999991,
+        976.8339160000032
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        98.73583299999882,
+        93.1210829999909,
+        90.16745799999626,
+        90.06562500000291
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        98.17762499999662,
+        94.68395800000872,
+        90.34879200000432,
+        90.20033300000068
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        98.47612500000105,
+        95.29262500000186,
+        89.2867499999993,
+        89.20337500001187
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        566.3367500000022,
+        507.9263329999958,
+        498.46949999999197,
+        498.752708
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        563.3591250000027,
+        503.1281250000029,
+        501.2306249999965,
+        495.34295800000837
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        557.7712499999907,
+        499.5445420000033,
+        492.1517920000042,
+        498.71666600000754
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        845.7686660000036,
+        724.4165420000063,
+        736.737208999999,
+        754.4569589999883
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        840.5082079999993,
+        729.4402909999917,
+        735.7847919999913,
+        733.7445000000007
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        843.5897079999995,
+        738.666624999998,
+        728.3886250000069,
+        736.7004999999917
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        1037.7839999999997,
+        898.8944590000028,
+        905.6321250000037,
+        910.1821670000063
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        1026.503291999994,
+        904.1446250000008,
+        901.7594160000008,
+        914.4713749999937
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "classifier_outage",
+      "firingMs": [
+        1015.9223749999946,
+        918.1805829999939,
+        908.547333999988,
+        914.5604170000006
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        87.54083300000639,
+        103.07316699999501,
+        96.54904199999874,
+        90.62275000000955
+      ],
+      "failedFirings": 1,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        93.27166600000055,
+        104.91933300001256,
+        93.77624999999534,
+        90.07295899999735
+      ],
+      "failedFirings": 1,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        92.70441700000083,
+        102.29079199999978,
+        94.52533299999777,
+        92.1006250000064
+      ],
+      "failedFirings": 1,
+      "resumed": false,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        994.4317089999968,
+        502.5685830000002,
+        497.9174170000042,
+        502.6940409999952
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        991.0844580000121,
+        505.78075000000536,
+        506.11166599999706,
+        508.262584000011
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "monolith",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        978.6862079999992,
+        501.1032919999998,
+        498.01529100000334,
+        488.5211249999993
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1268.3522499999963,
+        733.5822090000001,
+        731.7147499999992,
+        729.4063330000063
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1306.508541999996,
+        740.106667,
+        728.6527090000018,
+        724.0360419999924
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "phased",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1279.165915999998,
+        726.6863750000048,
+        726.5700840000063,
+        728.308875000017
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1461.8647089999868,
+        905.2516670000041,
+        899.1132499999949,
+        901.5105840000033
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1456.4805000000051,
+        905.0654170000053,
+        892.7622910000209,
+        899.4444999999832
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "crash_on_send",
+      "firingMs": [
+        1468.235915999976,
+        891.7334169999813,
+        889.5134169999801,
+        918.6834590000217
+      ],
+      "failedFirings": 0,
+      "resumed": true,
+      "resumeOk": true,
+      "check": {
+        "ok": true,
+        "violations": [],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed",
+        "completed"
+      ],
+      "posts": 3,
+      "maxPostsPerTask": 1,
+      "classifications": 3,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "direct",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        92.15233400001307,
+        96.77375000002212,
+        92.66420800000196,
+        95.03424999999697
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 1
+    },
+    {
+      "structure": "direct",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        90.77683300001081,
+        97.26729099999648,
+        93.94033300000592,
+        92.30429199998616
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 1
+    },
+    {
+      "structure": "direct",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        91.79166599997552,
+        95.00095899999724,
+        91.85358300001826,
+        88.27433299997938
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 1
+    },
+    {
+      "structure": "monolith",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        548.698040999996,
+        487.5863750000135,
+        477.48500000001513,
+        478.16379099999904
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 1
+    },
+    {
+      "structure": "monolith",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        552.3015829999931,
+        495.77449999999953,
+        475.59237500000745,
+        474.65066600000137
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 1
+    },
+    {
+      "structure": "monolith",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        534.634625000006,
+        489.4379159999953,
+        493.15695799997775,
+        504.4823749999923
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 1
+    },
+    {
+      "structure": "phased",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        843.0431250000256,
+        782.3062499999942,
+        725.1962079999794,
+        724.2131669999799
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 1
+    },
+    {
+      "structure": "phased",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        831.1467089999933,
+        787.4149590000161,
+        742.474291999999,
+        738.2879170000087
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 1
+    },
+    {
+      "structure": "phased",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        854.335167000012,
+        796.2633339999884,
+        739.6779589999933,
+        742.5571669999918
+      ],
+      "failedFirings": 0,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "completed"
+      ],
+      "posts": 2,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 1
+    },
+    {
+      "structure": "gated",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        1022.3608329999843,
+        768.1852919999801,
+        729.5084169999755,
+        732.4102089999942
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        1019.7374169999966,
+        777.3507500000123,
+        735.9645420000015,
+        873.984832999995
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0
+    },
+    {
+      "structure": "gated",
+      "scenario": "poisoned_ledger",
+      "firingMs": [
+        1055.9949999999953,
+        754.5282080000034,
+        744.6045830000076,
+        757.979250000004
+      ],
+      "failedFirings": 3,
+      "resumed": false,
+      "check": {
+        "ok": false,
+        "violations": [
+          "completed_without_verification:chief-8ba1a6062ed578193fff0211f70056dd263233e3feb09a83"
+        ],
+        "attention": []
+      },
+      "statuses": [
+        "completed",
+        "reserved"
+      ],
+      "posts": 1,
+      "maxPostsPerTask": 1,
+      "classifications": 2,
+      "unsafeDispatches": 0
+    }
+  ]
+}

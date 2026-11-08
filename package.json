@@ -4,18 +4,40 @@
   "private": true,
   "description": "A persistent project coordinator that delegates through Agent Relay",
   "type": "module",
-  "engines": { "node": ">=24.0.0" },
-  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
-  "bin": { "relay-chief": "./dist/cli.js" },
-  "files": ["dist", "README.md", "docs", "examples", "deploy"],
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "relay-chief": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "docs",
+    "examples",
+    "deploy"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "test": "node --import tsx --test test/*.test.ts",
     "proof": "node --import tsx --test test/proof.test.ts",
     "check": "npm run typecheck && npm test && npm run build",
-    "demo": "npm run proof"
+    "demo": "npm run proof",
+    "bench": "npm run build && npm ci --prefix flows --ignore-scripts && node benchmarks/chief/run.mjs"
   },
-  "dependencies": { "zod": "^4.1.12" },
-  "devDependencies": { "@types/node": "^24.0.0", "typescript": "~5.9.3", "tsx": "^4.20.0" }
+  "dependencies": {
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.3"
+  }
 }
