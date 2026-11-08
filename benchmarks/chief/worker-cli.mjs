@@ -23,7 +23,10 @@ if (command === 'accept') {
       repositories: ['acme/project'], actions: ['investigate', 'coordinate', 'unblock'], maxReservationMicros: 1_000_000, maxEvidenceAgeMs: 3_600_000 });
   // Persist the receipt before starting work; a repeated assignment is never executed.
   try { closeSync(openSync(join(state, `${assignment.taskId}.receipt`), 'wx', 0o600)); }
-  catch { console.log(JSON.stringify({ duplicate: true })); process.exit(0); }
+  catch (error) {
+    if (error.code !== 'EEXIST') throw error;
+    console.log(JSON.stringify({ duplicate: true })); process.exit(0);
+  }
   const saved = { taskId: assignment.taskId, digest };
   writeFileSync(statePath, JSON.stringify(saved));
   await post('accepted', 1, saved);
