@@ -25,7 +25,7 @@ async function withPorts(configPath: string, ledgerPath: string, work: (ports: C
     const source = new ControlPlaneClient({ config, baseUrl: credential('CHIEF_CONTROL_PLANE_URL'),
       token: credential('CHIEF_CONTROL_PLANE_TOKEN') });
     const relay = new RelayClient({ token: credential('RELAY_AGENT_TOKEN'), baseUrl: process.env.RELAY_BASE_URL });
-    const chief = new Chief(config, ledger, { relay, classifier: new JevClassifier({ token: credential('TYPESAFE_API_KEY') }), verifier: source });
+    const chief = new Chief(config, ledger, { relay, classifier: new JevClassifier({ token: credential('TYPESAFE_API_KEY') }), verifier: source, assignments: source });
     await work({ chief, reports: relay, source });
   } finally { ledger.close(); }
 }

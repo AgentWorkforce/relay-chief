@@ -124,18 +124,14 @@ as untrusted data, so it is not a general claim about resisting injection. Flows
 not enforce the agent's declared permissions, and the agent ran with no sandbox beyond
 its own defaults. Relay, Control and Jev are still fakes.
 
-## Control changes required
+## Control service
 
-None of this blocks the local simulation or benchmark.
+Chief's hosted API lives in its own service,
+[`relaychief-control`](https://github.com/AgentWorkforce/relaychief-control), so that
+`relay-control` runs complete without the add-on. It is in progress and not deployed.
 
-1. A production `ChiefBackend` for `POST /api/v1/workspaces/:id/chiefs`, with the
-   chief registry in Postgres instead of the single-process SQLite adapter.
-2. A `chief_slots` table with opaque slot IDs. Creating a chief claims a free slot in
-   the same transaction; with none free the chief is `awaiting_capacity`.
-3. Operator-only access to a slot's binding configuration (identifiers only) and a
-   way to mark a chief ready after every named readiness check has passed.
-4. The `/chief/v1/.../evidence` and `/verification` routes the chief calls, which
-   are contracts defined here and not confirmed to exist in Control.
-
-**Proposed owner:** one Relay agent dedicated to `relay-control`, reviewed by Khaliq.
-This is a proposal; nobody has accepted it.
+The chief calls three routes there, defined in [the contracts](contracts.md): evidence,
+assignment registration and verification. Older docs call the control plane
+`relaycontrol`; that is `relay-control`, which no longer hosts these routes. Evidence
+and verification have no working authority yet, so a chief cannot complete work
+against this service.

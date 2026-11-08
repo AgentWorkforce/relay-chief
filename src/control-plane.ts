@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import type { Assignment, ChiefConfig, CompletionVerifier, EvidencePage, EvidenceSource, Verification, WorkerReport } from './contracts.js';
+import type { Assignment, AssignmentRegistry, ChiefConfig, CompletionVerifier, EvidencePage, EvidenceSource, Verification, WorkerReport } from './contracts.js';
 import { evidenceSchema } from './contracts.js';
 import { origin, requestJson } from './http.js';
 
 /** Hosted integration contract. It does not assume these routes already exist in Cloud. */
-export class ControlPlaneClient implements EvidenceSource, CompletionVerifier {
+export class ControlPlaneClient implements EvidenceSource, CompletionVerifier, AssignmentRegistry {
   readonly id = 'project-sessions-v1';
   private base: string;
   private token: string;
@@ -26,6 +26,12 @@ export class ControlPlaneClient implements EvidenceSource, CompletionVerifier {
       .safeParse(await this.request(`${this.project}/evidence?${query}`));
     if (!page.success) throw new Error('evidence_page_invalid');
     return page.data;
+  }
+  async register(assignment: Assignment, digest: string): Promise<void> {
+    await requestJson(new URL(`${this.project}/tasks/${encodeURIComponent(assignment.taskId)}/assignment`, this.base), {
+      method: 'PUT', headers: { authorization: `Bearer ${this.token}`, 'content-type': 'application/json' },
+      body: JSON.stringify({ assignmentDigest: digest, assignment }),
+    }, this.fetcher);
   }
   async verify(assignment: Assignment, report: WorkerReport): Promise<Verification> {
     // Fetch only the configured authority, never URLs supplied by a worker or session.

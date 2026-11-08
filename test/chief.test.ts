@@ -3,6 +3,7 @@ import { mkdtempSync, rmSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
+import { Chief } from '../src/chief.js';
 import { Ledger } from '../src/ledger.js';
 import { chiefConfigSchema } from '../src/contracts.js';
 import { runCycle } from '../src/cycle.js';
@@ -294,4 +295,28 @@ test('the ledger check reports tampering and surfaces uncertain sends without bl
     .prepare("UPDATE tasks SET status='completed' WHERE id=?").run(task.id);
   assert.deepEqual(checkLedger(h.ledger, config()).violations, [`completed_without_verification:${task.id}`]);
   h.ledger.close();
+});
+
+test('an assignment is registered before its send, and a failed registration sends nothing', async () => {
+  const base = harness();
+  const order: string[] = [];
+  let failures = 2;
+  const chief = new Chief(config(), base.ledger, { now: () => NOW,
+    classifier: { classify: async () => ({ kind: 'blocked', confidence: 0.99 }) },
+    verifier: { verify: async () => ({ ok: true, checks: ['check@rev'] }) },
+    relay: { ...base.relay, send: async () => { order.push('send'); return { messageId: 'm-1' }; } },
+    assignments: { register: async (_assignment, digest) => { order.push(`register:${digest}`); if (failures-- > 0) throw new Error('down'); } } });
+  const { taskId } = await chief.observe(evidence());
+  const blocked = await chief.dispatch(taskId!);
+  assert.equal(blocked.status, 'reserved');
+  await chief.dispatch(taskId!);
+  assert.equal(base.ledger.task(taskId!).status, 'reserved');
+  await chief.dispatch(taskId!);
+  assert.equal(base.ledger.task(taskId!).status, 'delivered');
+  const registered = `register:${blocked.digest}`;
+  assert.deepEqual(order, [registered, registered, registered, 'send']);
+  await chief.dispatch(taskId!);
+  assert.equal(order.length, 4, 'a sent task is neither registered nor sent again');
+  assert.equal(base.ledger.decisions().filter(d => d.reason === 'assignment_registration_failed').length, 1);
+  base.ledger.close();
 });

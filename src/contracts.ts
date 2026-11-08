@@ -88,6 +88,11 @@ export interface Assignment {
   evidence: Evidence;
   acceptance: string[];
 }
+/** Authority that must know an assignment before it can verify the work. */
+export interface AssignmentRegistry {
+  /** Idempotent. Any rejection means the assignment must not be sent. */
+  register(assignment: Assignment, digest: string): Promise<void>;
+}
 export interface RelayIdentity {
   origin: string;
   workspaceId: string;
