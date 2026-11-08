@@ -30,7 +30,8 @@
     "proof": "node --import tsx --test test/proof.test.ts",
     "check": "npm run typecheck && npm test && npm run build",
     "demo": "npm run proof",
-    "bench": "npm run build && npm ci --prefix flows --ignore-scripts && node benchmarks/chief/run.mjs"
+    "bench": "npm run build && npm ci --prefix flows --ignore-scripts && node benchmarks/chief/run.mjs",
+    "bench:agent": "npm run build && npm ci --prefix flows --ignore-scripts && node benchmarks/chief/real-agent.mjs"
   },
   "dependencies": {
     "zod": "^4.1.12"
