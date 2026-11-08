@@ -112,6 +112,7 @@ test('setup plans are deterministic and contain resource tags, references to cre
   const plan = provisionPlan(request);
   assert.deepEqual(provisionPlan(request), plan);
   assert.equal(plan.compute.publicAccess, false);
+  assert.equal(plan.compute.hostCredentialIsolation, 'required');
   assert.equal(plan.compute.labels['relay:chief-id'], 'chief-1');
   assert.equal(plan.runtime.implementationCapability, false);
   assert.ok(plan.approvalRequired.includes('iam'));

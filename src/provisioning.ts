@@ -19,7 +19,7 @@ export function provisionPlan(raw: unknown) {
     scope: { organizationId: setup.config.organizationId, workspaceId: setup.config.workspaceId,
       projectId: setup.config.projectId, chiefId: setup.config.chiefId },
     compute: { sizeClass: setup.sizeClass, placement: setup.placement, publicAccess: false, inboundRules: [],
-      encryptedStorage: true, durableDataPath: '/var/lib/relay-chief',
+      encryptedStorage: true, hostCredentialIsolation: 'required', durableDataPath: '/var/lib/relay-chief',
       labels: { 'relay:service': 'relay-chief', 'relay:chief-id': setup.config.chiefId,
         'relay:organization-id': setup.config.organizationId, 'relay:workspace-id': setup.config.workspaceId,
         'relay:project-id': setup.config.projectId } },

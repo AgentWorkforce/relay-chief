@@ -72,7 +72,7 @@ node dist/cli.js --help
 node dist/cli.js plan examples/setup.json
 ```
 
-`plan` emits reviewable desired state, allocation tags, credential binding names
+`plan` emits reviewable desired state, allocation labels, credential binding names
 and readiness checks. It makes no cloud calls and grants no authority to deploy.
 
 Copy [the example configuration](examples/chief.config.json), replacing identifiers
