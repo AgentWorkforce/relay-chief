@@ -320,3 +320,19 @@ test('an assignment is registered before its send, and a failed registration sen
   assert.equal(base.ledger.decisions().filter(d => d.reason === 'assignment_registration_failed').length, 1);
   base.ledger.close();
 });
+
+test('an operator can release a failed task, and nothing that may still be running', async () => {
+  const h = harness({ config: { ...config(), policy: { ...config().policy, maxConcurrentTasks: 1 } } });
+  const first = await h.chief.observe(evidence());
+  const task = await h.chief.dispatch(first.taskId!);
+  assert.throws(() => h.ledger.cancelFailed(task.id, NOW), /cancel_requires_needs_attention/);
+  await h.chief.receive({ workspaceId: 'workspace-1', agentId: 'agent-worker', report: report(task, 'failed') });
+  assert.equal(h.ledger.task(task.id).status, 'needs_attention');
+  const blocked = await h.chief.observe(evidence({ sessionId: 's-2', workKey: 'issue-43', resourceKeys: ['issue-43'] }));
+  assert.equal(blocked.reason, 'capacity_exhausted');
+  assert.equal(h.ledger.cancelFailed(task.id, NOW).status, 'canceled');
+  assert.ok(h.ledger.decisions().some(d => d.reason === 'operator_canceled' && d.taskId === task.id));
+  const next = await h.chief.observe(evidence({ sessionId: 's-3', workKey: 'issue-44', resourceKeys: ['issue-44'] }));
+  assert.equal(next.outcome, 'reserved');
+  h.ledger.close();
+});
