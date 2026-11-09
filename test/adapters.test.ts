@@ -191,6 +191,37 @@ test('report polling drains descending pages oldest first without skipping a ful
   h.ledger.close();
 });
 
+test('relay checks its own workspace while reports stay in the control workspace', async () => {
+  const h = harness({ config: { ...config(), relayWorkspaceId: '245411583121604608' } });
+  const decision = await h.chief.observe(evidence());
+  const task = await h.chief.dispatch(decision.taskId!);
+  assert.equal(task.assignment.workspaceId, 'workspace-1');
+  const relayWith = (workspace: string) => new RelayClient({ token: 'local-token', baseUrl: 'https://relay.example',
+    workspaceId: '245411583121604608', fetch: async url => {
+      const request = new URL(String(url));
+      if (request.pathname === '/v1/agent') return json({ ok: true, data: { id: 'agent-chief', workspace_id: workspace } });
+      if (request.pathname.endsWith('/conversations')) return json({ ok: true, data: [{ id: 'dm-1', type: '1:1',
+        participants: [{ agent_id: 'agent-chief' }, { agent_id: 'agent-worker' }] }] });
+      return json({ ok: true, data: [{ id: '1000000000000000001', agent_id: 'agent-worker',
+        metadata: { chief_report: report(task, 'completed') } }] });
+    } });
+  await assert.rejects(relayWith('workspace-1').poll(h.chief), /relay_/);
+  await assert.rejects(relayWith('245999999999999999').poll(h.chief), /relay_/);
+  assert.equal(h.ledger.task(task.id).status, 'delivered');
+  assert.deepEqual(await relayWith('245411583121604608').poll(h.chief), { processed: 1, rejected: 0 });
+  assert.equal(h.ledger.task(task.id).status, 'completed');
+  h.ledger.close();
+});
+
+test('a chief refuses to dispatch when relay reports another workspace', async () => {
+  const h = harness({ config: { ...config(), relayWorkspaceId: 'relay-workspace' } });
+  const decision = await h.chief.observe(evidence());
+  h.relay.identity = async () => ({ origin: 'https://relay.example', workspaceId: 'workspace-1', callerId: 'agent-chief' });
+  await assert.rejects(h.chief.dispatch(decision.taskId!), /relay_scope/);
+  assert.equal(h.counts().sends, 0);
+  h.ledger.close();
+});
+
 test('the reference systemd unit does not dispatch by default', () => {
   const unit = readFileSync('deploy/relay-chief.service', 'utf8');
   const exec = unit.split('\n').find(line => line.startsWith('ExecStart='));

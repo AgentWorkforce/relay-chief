@@ -26,7 +26,7 @@ export function harness(options: { config?: ChiefConfig; ledger?: Ledger; classi
   let sends = 0;
   let verifications = 0;
   const relay: RelayTransport = {
-    identity: async () => ({ origin: 'https://relay.example', workspaceId: 'workspace-1', callerId: 'agent-chief' }),
+    identity: async () => ({ origin: 'https://relay.example', workspaceId: options.config?.relayWorkspaceId ?? 'workspace-1', callerId: 'agent-chief' }),
     send: async () => { sends++; if (options.relayError) throw new Error('provider-secret-in-error'); return { messageId: 'message-1' }; },
   };
   const ledger = options.ledger ?? new Ledger(':memory:');

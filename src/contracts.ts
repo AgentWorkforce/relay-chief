@@ -23,6 +23,8 @@ export const chiefConfigSchema = z.strictObject({
   workspaceId: id,
   projectId: id,
   relayCallerId: id,
+  /** Relay names workspaces separately from Control. Omitted when both use one identifier. */
+  relayWorkspaceId: id.optional(),
   repositories: z.array(repo).min(1),
   workers: z.array(z.strictObject({
     agentId: id,
@@ -40,6 +42,10 @@ export const chiefConfigSchema = z.strictObject({
   }
 });
 export type ChiefConfig = z.infer<typeof chiefConfigSchema>;
+/** The workspace Relay must report for this chief's agent token. */
+export function relayWorkspaceOf(config: Pick<ChiefConfig, 'workspaceId' | 'relayWorkspaceId'>): string {
+  return config.relayWorkspaceId ?? config.workspaceId;
+}
 export const evidenceSchema = z.strictObject({
   sourceId: id,
   sessionId: id,
