@@ -1,5 +1,5 @@
 import type { AssignmentRegistry, AuthenticatedReport, ChiefConfig, Classifier, CompletionVerifier, Decision, EvidenceSource, RelayTransport, Task } from './contracts.js';
-import { chiefConfigSchema, classificationSchema, evidenceSchema, hash, reportSchema } from './contracts.js';
+import { chiefConfigSchema, classificationSchema, evidenceSchema, hash, relayWorkspaceOf, reportSchema } from './contracts.js';
 import { Ledger } from './ledger.js';
 import { checkLedger } from './invariants.js';
 import { evaluate } from './policy.js';
@@ -59,7 +59,7 @@ export class Chief {
   }
   async dispatch(id: string): Promise<Task> {
     const identity = await this.ports.relay.identity();
-    if (identity.callerId !== this.config.relayCallerId || identity.workspaceId !== this.config.workspaceId) throw new Error('relay_scope_mismatch');
+    if (identity.callerId !== this.config.relayCallerId || identity.workspaceId !== relayWorkspaceOf(this.config)) throw new Error('relay_scope_mismatch');
     this.ledger.bindRelay(identity);
     // Before the claim: registration is idempotent, so a failure leaves the task reserved and safe to retry.
     const pending = this.ledger.task(id);

@@ -10,7 +10,7 @@ import type {
   EvidenceSource,
   RelayTransport,
 } from "./contracts.js";
-import { actionSchema, canonical, hash } from "./contracts.js";
+import { actionSchema, canonical, hash, relayWorkspaceOf } from "./contracts.js";
 import { Ledger } from "./ledger.js";
 import type { RepositorySource } from "./repositories.js";
 import { provisionPlan } from "./provisioning.js";
@@ -48,7 +48,7 @@ export interface ProjectRuntimeFactory {
   identities(
     context: WorkspaceContext,
     chiefId: string,
-  ): Pick<ChiefConfig, "relayCallerId" | "workers">;
+  ): Pick<ChiefConfig, "relayCallerId" | "relayWorkspaceId" | "workers">;
   connect(config: ChiefConfig): Promise<ProjectRuntime>;
 }
 export class SetupError extends Error {
@@ -389,7 +389,7 @@ export class ProjectCoordinators {
           const runtime = await this.runtime!.connect(config);
           const identity = await runtime.relay.identity();
           if (
-            identity.workspaceId !== context.workspaceId ||
+            identity.workspaceId !== relayWorkspaceOf(config) ||
             identity.callerId !== config.relayCallerId ||
             !config.workers.length
           )

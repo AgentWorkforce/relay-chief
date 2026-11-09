@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { Assignment, RelayIdentity, RelayTransport } from './contracts.js';
-import { canonical, hash, reportSchema } from './contracts.js';
+import { canonical, hash, relayWorkspaceOf, reportSchema } from './contracts.js';
 import type { Chief } from './chief.js';
 import { origin, requestJson } from './http.js';
 
@@ -13,9 +13,15 @@ const conversationsSchema = z.object({ ok: z.literal(true), data: z.array(z.obje
   participants: z.array(z.object({ agent_id: z.string().min(1) })),
 })) });
 const messagesSchema = z.object({ ok: z.literal(true), data: z.array(z.object({
-  id: z.string().regex(/^\d{19}$/), agent_id: z.string().min(1),
+  id: z.string().regex(/^\d{1,20}$/), agent_id: z.string().min(1),
   metadata: z.record(z.string(), z.unknown()).optional(),
 })) });
+
+/** Relay message IDs are snowflakes of varying length, so they compare as numbers. */
+function compareMessageIds(a: string, b: string): number {
+  const [left, right] = [BigInt(a), BigInt(b)];
+  return left < right ? -1 : left > right ? 1 : 0;
+}
 
 /** Agent token only: no workspace admin credential, agent spawning or repository tools. */
 export class RelayClient implements RelayTransport {
@@ -23,11 +29,14 @@ export class RelayClient implements RelayTransport {
   private token: string;
   private fetcher: typeof fetch;
   private caller?: RelayIdentity;
-  constructor(options: { baseUrl?: string; token: string; fetch?: typeof fetch }) {
+  private workspaceId?: string;
+  /** `workspaceId` is the Relay workspace to require; without it, the assignment's workspace is used. */
+  constructor(options: { baseUrl?: string; token: string; fetch?: typeof fetch; workspaceId?: string }) {
     this.base = origin(options.baseUrl ?? 'https://cast.agentrelay.com');
     if (!options.token.trim()) throw new Error('relay_credential_missing');
     this.token = options.token;
     this.fetcher = options.fetch ?? fetch;
+    this.workspaceId = options.workspaceId;
   }
   private async request(path: string, body?: unknown, key?: string): Promise<unknown> {
     return requestJson(new URL(path, this.base), {
@@ -44,7 +53,7 @@ export class RelayClient implements RelayTransport {
     return this.caller;
   }
   async send(assignment: Assignment, digest: string): Promise<{ messageId: string }> {
-    if (!this.caller || this.caller.workspaceId !== assignment.workspaceId) throw new Error('relay_identity_unresolved');
+    if (!this.caller || this.caller.workspaceId !== (this.workspaceId ?? assignment.workspaceId)) throw new Error('relay_identity_unresolved');
     const response = dmSchema.safeParse(await this.request('/v1/dm', {
       address: assignment.worker.address, mode: 'wait',
       text: `Relay Chief assignment ${assignment.taskId}: ${assignment.action} ${assignment.workKey} in ${assignment.repository}. Read the structured chief_assignment and acceptance criteria. Report using relay-chief.report.v1 over Relay.`,
@@ -56,7 +65,7 @@ export class RelayClient implements RelayTransport {
   /** Pull reports from authorized 1:1 conversations, deriving sender identity from Relay. */
   async poll(chief: Chief): Promise<{ processed: number; rejected: number }> {
     const identity = await this.identity();
-    if (identity.workspaceId !== chief.config.workspaceId || identity.callerId !== chief.config.relayCallerId) throw new Error('relay_scope_mismatch');
+    if (identity.workspaceId !== relayWorkspaceOf(chief.config) || identity.callerId !== chief.config.relayCallerId) throw new Error('relay_scope_mismatch');
     chief.ledger.bindRelay(identity);
     const parsed = conversationsSchema.safeParse(await this.request('/v1/dm/conversations?limit=100'));
     if (!parsed.success) throw new Error('relay_conversations_invalid');
@@ -78,15 +87,15 @@ export class RelayClient implements RelayTransport {
         const query = new URLSearchParams({ limit: '100', ...(cursor ? { after: cursor } : {}), ...(before ? { before } : {}) });
         const page = messagesSchema.safeParse(await this.request(`/v1/dm/${encodeURIComponent(conversation.id)}/messages?${query}`));
         if (!page.success) throw new Error('relay_messages_invalid');
-        if (page.data.data.some(m => (cursor && m.id <= cursor) || (before && m.id >= before))) throw new Error('relay_page_invalid');
+        if (page.data.data.some(m => (cursor && compareMessageIds(m.id, cursor) <= 0) || (before && compareMessageIds(m.id, before) >= 0))) throw new Error('relay_page_invalid');
         messages.push(...page.data.data);
         if (messages.length > 1000) throw new Error('relay_report_backlog_limit');
         if (page.data.data.length < 100) break;
-        const next = page.data.data.map(m => m.id).sort()[0];
+        const next = page.data.data.map(m => m.id).sort(compareMessageIds)[0];
         if (!next || next === before) throw new Error('relay_page_invalid');
         before = next;
       }
-      messages.sort((a, b) => a.id.localeCompare(b.id));
+      messages.sort((a, b) => compareMessageIds(a.id, b.id));
       for (const message of messages) {
         if (!workers.has(message.agent_id) || !message.metadata?.chief_report) continue;
         const report = reportSchema.safeParse(message.metadata.chief_report);
@@ -97,7 +106,7 @@ export class RelayClient implements RelayTransport {
         };
         if (!report.success) { reject(); continue; }
         try {
-          await chief.receive({ workspaceId: identity.workspaceId, agentId: message.agent_id, report: report.data });
+          await chief.receive({ workspaceId: chief.config.workspaceId, agentId: message.agent_id, report: report.data });
           processed++;
         } catch (error) {
           if (!(error instanceof Error) || !['task_not_found', 'report_identity_mismatch', 'report_before_dispatch',

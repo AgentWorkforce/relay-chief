@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { Chief } from './chief.js';
-import { chiefConfigSchema } from './contracts.js';
+import { chiefConfigSchema, relayWorkspaceOf } from './contracts.js';
 import { ControlPlaneClient } from './control-plane.js';
 import type { CyclePorts } from './cycle.js';
 import { isPhase, runCycle, runPhase } from './cycle.js';
@@ -24,7 +24,8 @@ async function withPorts(configPath: string, ledgerPath: string, work: (ports: C
   try {
     const source = new ControlPlaneClient({ config, baseUrl: credential('CHIEF_CONTROL_PLANE_URL'),
       token: credential('CHIEF_CONTROL_PLANE_TOKEN') });
-    const relay = new RelayClient({ token: credential('RELAY_AGENT_TOKEN'), baseUrl: process.env.RELAY_BASE_URL });
+    const relay = new RelayClient({ token: credential('RELAY_AGENT_TOKEN'), baseUrl: process.env.RELAY_BASE_URL,
+      workspaceId: relayWorkspaceOf(config) });
     const chief = new Chief(config, ledger, { relay, classifier: new JevClassifier({ token: credential('TYPESAFE_API_KEY') }), verifier: source, assignments: source });
     await work({ chief, reports: relay, source });
   } finally { ledger.close(); }
