@@ -213,6 +213,25 @@ test('relay checks its own workspace while reports stay in the control workspace
   h.ledger.close();
 });
 
+test('real 18-digit relay message IDs are accepted and ordered numerically', async () => {
+  const h = harness();
+  const decision = await h.chief.observe(evidence());
+  const task = await h.chief.dispatch(decision.taskId!);
+  const ids = ['1000000000000000002', '999999999999999999'];
+  const relay = new RelayClient({ token: 'local-token', baseUrl: 'https://relay.example', fetch: async url => {
+    const request = new URL(String(url));
+    if (request.pathname === '/v1/agent') return json({ ok: true, data: { id: 'agent-chief', workspace_id: 'workspace-1' } });
+    if (request.pathname.endsWith('/conversations')) return json({ ok: true, data: [{ id: 'dm-1', type: '1:1',
+      participants: [{ agent_id: 'agent-chief' }, { agent_id: 'agent-worker' }] }] });
+    return json({ ok: true, data: [{ id: ids[0], agent_id: 'agent-worker', metadata: { chief_report: report(task, 'completed', 2) } },
+      { id: ids[1], agent_id: 'agent-worker', metadata: { chief_report: report(task, 'running', 1) } }] });
+  } });
+  assert.deepEqual(await relay.poll(h.chief), { processed: 2, rejected: 0 });
+  assert.equal(h.ledger.task(task.id).status, 'completed');
+  assert.equal(h.ledger.cursor('relay:https://relay.example:dm-1'), ids[0]);
+  h.ledger.close();
+});
+
 test('a chief refuses to dispatch when relay reports another workspace', async () => {
   const h = harness({ config: { ...config(), relayWorkspaceId: 'relay-workspace' } });
   const decision = await h.chief.observe(evidence());

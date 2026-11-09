@@ -13,9 +13,15 @@ const conversationsSchema = z.object({ ok: z.literal(true), data: z.array(z.obje
   participants: z.array(z.object({ agent_id: z.string().min(1) })),
 })) });
 const messagesSchema = z.object({ ok: z.literal(true), data: z.array(z.object({
-  id: z.string().regex(/^\d{19}$/), agent_id: z.string().min(1),
+  id: z.string().regex(/^\d{1,20}$/), agent_id: z.string().min(1),
   metadata: z.record(z.string(), z.unknown()).optional(),
 })) });
+
+/** Relay message IDs are snowflakes of varying length, so they compare as numbers. */
+function compareMessageIds(a: string, b: string): number {
+  const [left, right] = [BigInt(a), BigInt(b)];
+  return left < right ? -1 : left > right ? 1 : 0;
+}
 
 /** Agent token only: no workspace admin credential, agent spawning or repository tools. */
 export class RelayClient implements RelayTransport {
@@ -81,15 +87,15 @@ export class RelayClient implements RelayTransport {
         const query = new URLSearchParams({ limit: '100', ...(cursor ? { after: cursor } : {}), ...(before ? { before } : {}) });
         const page = messagesSchema.safeParse(await this.request(`/v1/dm/${encodeURIComponent(conversation.id)}/messages?${query}`));
         if (!page.success) throw new Error('relay_messages_invalid');
-        if (page.data.data.some(m => (cursor && m.id <= cursor) || (before && m.id >= before))) throw new Error('relay_page_invalid');
+        if (page.data.data.some(m => (cursor && compareMessageIds(m.id, cursor) <= 0) || (before && compareMessageIds(m.id, before) >= 0))) throw new Error('relay_page_invalid');
         messages.push(...page.data.data);
         if (messages.length > 1000) throw new Error('relay_report_backlog_limit');
         if (page.data.data.length < 100) break;
-        const next = page.data.data.map(m => m.id).sort()[0];
+        const next = page.data.data.map(m => m.id).sort(compareMessageIds)[0];
         if (!next || next === before) throw new Error('relay_page_invalid');
         before = next;
       }
-      messages.sort((a, b) => a.id.localeCompare(b.id));
+      messages.sort((a, b) => compareMessageIds(a.id, b.id));
       for (const message of messages) {
         if (!workers.has(message.agent_id) || !message.metadata?.chief_report) continue;
         const report = reportSchema.safeParse(message.metadata.chief_report);
