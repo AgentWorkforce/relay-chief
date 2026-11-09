@@ -249,6 +249,21 @@ export class Ledger {
       return this.task(id);
     });
   }
+  /**
+   * Operator-only: releases a task whose worker reported failure, so its capacity and resources
+   * can be used again. Anything else may still have an agent running, so it is refused.
+   */
+  cancelFailed(id: string, now: number): Task {
+    return this.transaction(() => {
+      const task = this.task(id);
+      if (task.status !== 'needs_attention') throw new Error('cancel_requires_needs_attention');
+      this.db.prepare("UPDATE tasks SET status='canceled', updated_at=? WHERE id=?").run(now, id);
+      this.db.prepare('DELETE FROM claims WHERE task_id=?').run(id);
+      this.record({ evidenceDigest: task.assignment.evidenceDigest, kind: 'uncertain', outcome: 'deferred',
+        reason: 'operator_canceled', taskId: id }, now);
+      return this.task(id);
+    });
+  }
   delivery(id: string, messageId: string | undefined, now: number): void {
     this.db.prepare(`UPDATE tasks SET status=CASE WHEN status='sending' THEN ? ELSE status END,
       message_id=COALESCE(message_id,?), updated_at=? WHERE id=?`)

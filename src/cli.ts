@@ -52,6 +52,12 @@ async function main(): Promise<void> {
     try { console.log(JSON.stringify(checkLedger(ledger, config))); } finally { ledger.close(); }
     return;
   }
+  if (command === 'cancel' && args.length === 2) {
+    const ledger = new Ledger(resolve(args[0]!));
+    try { console.log(JSON.stringify({ id: args[1], status: ledger.cancelFailed(args[1]!, Date.now()).status })); }
+    finally { ledger.close(); }
+    return;
+  }
   if (command === 'run-once' && (args.length === 2 || (args.length === 3 && args[2] === '--dispatch'))) {
     await withPorts(args[0]!, args[1]!, async ports => {
       console.log(JSON.stringify(await runCycle(ports, { dispatch: args.length === 3 })));
@@ -63,7 +69,7 @@ async function main(): Promise<void> {
     await withPorts(args[1]!, args[2]!, async ports => { console.log(JSON.stringify(await runPhase(phase, ports))); });
     return;
   }
-  console.log('relay-chief plan <setup.json>\nrelay-chief inspect <ledger.db>\nrelay-chief run-once <config.json> <ledger.db> [--dispatch]\nrelay-chief phase <reports|verify|scan|dispatch> <config.json> <ledger.db>\nrelay-chief check <config.json> <ledger.db>');
+  console.log('relay-chief plan <setup.json>\nrelay-chief inspect <ledger.db>\nrelay-chief run-once <config.json> <ledger.db> [--dispatch]\nrelay-chief phase <reports|verify|scan|dispatch> <config.json> <ledger.db>\nrelay-chief check <config.json> <ledger.db>\nrelay-chief cancel <ledger.db> <task-id>');
   if (command && command !== '--help') process.exitCode = 1;
 }
 main().catch(() => {
