@@ -336,3 +336,20 @@ test('an operator can release a failed task, and nothing that may still be runni
   assert.equal(next.outcome, 'reserved');
   h.ledger.close();
 });
+
+test('a classifier overlap finding never becomes work', async () => {
+  const h = harness({ classification: { kind: 'overlap', confidence: 0.99 } });
+  const decision = await h.chief.observe(evidence());
+  assert.equal(decision.outcome, 'ignored');
+  assert.equal(decision.reason, 'overlap_requires_detector');
+  assert.equal(h.ledger.tasks().length, 0);
+  h.ledger.close();
+});
+
+test('a deferred finding is recorded once however often it is retried', async () => {
+  const h = harness({ classification: { kind: 'follow_up', confidence: 0.5 } });
+  for (let i = 0; i < 5; i++) await h.chief.observe(evidence());
+  assert.equal(h.ledger.decisions().filter(d => d.reason === 'classification_uncertain').length, 1);
+  h.ledger.close();
+});
+
