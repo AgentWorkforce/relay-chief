@@ -169,9 +169,18 @@ export class Ledger {
       const base = { evidenceDigest: hash(evidence), kind: classification.kind };
       const defer = (reason: string): Decision => {
         this.defer(base.evidenceDigest, now);
-        return this.record({ ...base, outcome: 'deferred', reason }, now);
+        // A deferred item is retried every cycle; record each distinct outcome once, not every retry.
+        const decision: Decision = { ...base, outcome: 'deferred', reason };
+        if (!this.db.prepare('SELECT 1 FROM decisions WHERE body=? LIMIT 1').get(canonical(decision))) this.record(decision, now);
+        return decision;
       };
       if (!this.active(config)) return defer('configuration_changed');
+      // The classifier cannot tell real overlap from planned parallel work (see docs/evals.md), so an
+      // overlap finding never becomes work until a pair-level detector supplies that evidence.
+      if (classification.kind === 'overlap') {
+        this.finish(base.evidenceDigest);
+        return this.record({ ...base, outcome: 'ignored', reason: 'overlap_requires_detector' }, now);
+      }
       const blocked = evaluate(config, evidence, classification, now);
       if (blocked) return defer(blocked);
       const action = actionFor(classification.kind);
