@@ -26,7 +26,7 @@ async function withPorts(configPath: string, ledgerPath: string, work: (ports: C
       token: credential('CHIEF_CONTROL_PLANE_TOKEN') });
     const relay = new RelayClient({ token: credential('RELAY_AGENT_TOKEN'), baseUrl: process.env.RELAY_BASE_URL,
       workspaceId: relayWorkspaceOf(config) });
-    const chief = new Chief(config, ledger, { relay, classifier: new JevClassifier({ token: credential('TYPESAFE_API_KEY') }), verifier: source, assignments: source });
+    const chief = new Chief(config, ledger, { relay, classifier: new JevClassifier({ token: credential('TYPESAFE_API_KEY') }), verifier: source, assignments: source, findings: source });
     await work({ chief, reports: relay, source });
   } finally { ledger.close(); }
 }
@@ -38,9 +38,10 @@ async function main(): Promise<void> {
   if (command === 'inspect' && args.length === 1) {
     const ledger = new Ledger(resolve(args[0]!), { readOnly: true });
     try {
-      // Summary deliberately omits transcripts, task payloads and credentials.
+      // Summary deliberately omits transcripts, task payloads, worker findings and credentials.
       console.log(JSON.stringify({ tasks: ledger.tasks().map(task => ({ id: task.id, status: task.status,
-        action: task.assignment.action, workKey: task.assignment.workKey, messageId: task.messageId })),
+        action: task.assignment.action, workKey: task.assignment.workKey, messageId: task.messageId,
+        reason: task.report?.reason, checks: task.verification?.checks })),
         decisions: ledger.decisions(), accounting: ledger.accounting() }, null, 2));
     } finally { ledger.close(); }
     return;

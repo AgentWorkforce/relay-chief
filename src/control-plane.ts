@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import type { Assignment, AssignmentRegistry, ChiefConfig, CompletionVerifier, EvidencePage, EvidenceSource, Verification, WorkerReport } from './contracts.js';
+import type { Assignment, AssignmentRegistry, ChiefConfig, CompletionVerifier, EvidencePage, EvidenceSource, FindingsPublisher, Verification, WorkerReport } from './contracts.js';
 import { evidenceSchema } from './contracts.js';
 import { origin, requestJson } from './http.js';
 
 /** Hosted integration contract. It does not assume these routes already exist in Cloud. */
-export class ControlPlaneClient implements EvidenceSource, CompletionVerifier, AssignmentRegistry {
+export class ControlPlaneClient implements EvidenceSource, CompletionVerifier, AssignmentRegistry, FindingsPublisher {
   readonly id = 'project-sessions-v1';
   private base: string;
   private token: string;
@@ -32,6 +32,17 @@ export class ControlPlaneClient implements EvidenceSource, CompletionVerifier, A
       method: 'PUT', headers: { authorization: `Bearer ${this.token}`, 'content-type': 'application/json' },
       body: JSON.stringify({ assignmentDigest: digest, assignment }),
     }, this.fetcher);
+  }
+  /** PUT so a retry after a lost response cannot post the findings twice. */
+  async publish(assignment: Assignment, report: WorkerReport & { findings: string }): Promise<void> {
+    const value = z.object({ taskId: z.string(), assignmentDigest: z.string() }).safeParse(await requestJson(
+      new URL(`${this.project}/tasks/${encodeURIComponent(assignment.taskId)}/findings`, this.base), {
+        method: 'PUT', headers: { authorization: `Bearer ${this.token}`, 'content-type': 'application/json' },
+        body: JSON.stringify({ sequence: report.sequence, assignmentDigest: report.assignmentDigest, findings: report.findings }),
+      }, this.fetcher));
+    if (!value.success || value.data.taskId !== assignment.taskId || value.data.assignmentDigest !== report.assignmentDigest) {
+      throw new Error('findings_identity_mismatch');
+    }
   }
   async verify(assignment: Assignment, report: WorkerReport): Promise<Verification> {
     // Fetch only the configured authority, never URLs supplied by a worker or session.

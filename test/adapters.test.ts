@@ -92,6 +92,24 @@ test('verification uses the configured authority and exact task/digest/sequence,
   h.ledger.close();
 });
 
+test('findings go to the configured authority by an idempotent PUT bound to the task and digest', async () => {
+  const h = harness();
+  const decision = await h.chief.observe(evidence());
+  const task = h.ledger.task(decision.taskId!);
+  const done = { ...report(task), findings: 'Root cause found.' };
+  const calls: { url: string; init: RequestInit }[] = [];
+  let reply: unknown = { taskId: task.id, assignmentDigest: task.digest, commentId: '1', created: true };
+  const plane = new ControlPlaneClient({ baseUrl: 'https://control.example', token: 'secret-sentinel', config: config(),
+    fetch: async (url, init) => { calls.push({ url: String(url), init: init! }); return json(reply); } });
+  await plane.publish(task.assignment, done);
+  assert.equal(calls[0]!.url, `https://control.example/chief/v1/projects/project-1/tasks/${task.id}/findings`);
+  assert.equal(calls[0]!.init.method, 'PUT');
+  assert.deepEqual(JSON.parse(calls[0]!.init.body as string), { sequence: 1, assignmentDigest: task.digest, findings: 'Root cause found.' });
+  reply = { taskId: 'other', assignmentDigest: task.digest };
+  await assert.rejects(plane.publish(task.assignment, done), /findings_identity_mismatch/);
+  h.ledger.close();
+});
+
 test('execution-side protocol refuses wrong principals, changed scope, stale evidence and modified payloads', async () => {
   const h = harness();
   const decision = await h.chief.observe(evidence());

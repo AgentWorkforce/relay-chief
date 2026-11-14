@@ -1,4 +1,4 @@
-import type { AssignmentRegistry, AuthenticatedReport, ChiefConfig, Classifier, CompletionVerifier, Decision, EvidenceSource, RelayTransport, Task } from './contracts.js';
+import type { AssignmentRegistry, AuthenticatedReport, ChiefConfig, Classifier, CompletionVerifier, Decision, EvidenceSource, FindingsPublisher, RelayTransport, Task } from './contracts.js';
 import { chiefConfigSchema, classificationSchema, evidenceSchema, hash, relayWorkspaceOf, reportSchema } from './contracts.js';
 import { Ledger } from './ledger.js';
 import { checkLedger } from './invariants.js';
@@ -14,6 +14,8 @@ export class Chief {
     verifier: CompletionVerifier;
     /** When set, an assignment must be registered before it can be claimed or sent. */
     assignments?: AssignmentRegistry;
+    /** When set, an investigation's findings are published before it is verified. */
+    findings?: FindingsPublisher;
     now?: () => number;
   };
   constructor(config: ChiefConfig, ledger: Ledger, ports: Chief['ports']) {
@@ -99,6 +101,16 @@ export class Chief {
   async verify(id: string): Promise<Task> {
     const task = this.ledger.task(id);
     if (task.status !== 'awaiting_verification' || !task.report) return task;
+    const { report } = task;
+    if (task.assignment.action === 'investigate') {
+      // An investigation is accepted on its findings. Without any, nothing could ever accept it.
+      if (!report.findings) return this.ledger.verified(id, report.sequence, { ok: false, checks: ['findings_missing'] }, this.now(), { final: true });
+      const posted = task.verification?.checks.some(check => check.startsWith('findings_posted'));
+      if (this.ports.findings && !posted) {
+        try { await this.ports.findings.publish(task.assignment, { ...report, findings: report.findings }); }
+        catch { return this.ledger.verified(id, report.sequence, { ok: false, checks: ['findings_unpublished'] }, this.now()); }
+      }
+    }
     try {
       const verification = await this.ports.verifier.verify(task.assignment, task.report);
       if (typeof verification.ok !== 'boolean' || !Array.isArray(verification.checks) ||
