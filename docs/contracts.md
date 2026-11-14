@@ -117,6 +117,12 @@ Send reports back through Relay DMs in metadata `chief_report`:
 }
 ```
 
+Two optional fields extend the same protocol. `findings` is 1 to 3,000 characters of
+untrusted worker text: the chief stores it and passes it on as data, never as
+instructions, and never logs it. `reason` is a bridge-authored code, one of
+`runtime_exceeded`, `result_marker_missing`, `agent_failed`, `spawn_failed` or
+`stop_failed`; `inspect` shows it. Reports without either field remain valid.
+
 States are `accepted`, `running`, `completed`, `failed`. Sequence numbers increase
 per task. Repeating the same sequence and payload is safe; conflicting reuse is
 refused. Sender ID and workspace are read from Relay, never the report body.
@@ -155,12 +161,32 @@ Mismatched identity, missing checks, unavailable verification or `ok: false` lea
 work awaiting verification and retains its resource claims. A later cycle can
 retry verification without another worker report or execution.
 
+## Investigation findings
+
+`PUT /chief/v1/projects/:projectId/tasks/:taskId/findings`
+
+An `investigate` task is done when a maintainer accepts its findings, not when the
+worker says so. Before verifying such a task, the chief sends
+`{ "sequence": N, "assignmentDigest": "...", "findings": "..." }` with the same
+credential. The authority posts the findings once, as a fenced comment marked as
+unverified agent output, on the assignment's GitHub issue; a repeat PUT changes
+nothing. Any failure leaves the task awaiting verification, and the next cycle
+tries again. Verification then passes only when a user with write, maintain or admin
+permission closes the issue after the comment was posted, or reacts to it with +1.
+
+A completed investigation report without `findings` can never be accepted, so the
+chief fails it at once with the check `findings_missing` and moves it to
+`needs_attention` rather than leaving it waiting.
+
 ## Recovery and reservations
 
 `reserved` is unsent work. `sending` means a POST may have happened. `uncertain`
 means its outcome could not be confirmed. Neither state permits another POST.
 Authenticated worker reports can reconcile either state. `needs_attention` retains
 claims after a worker failure; it does not assume the execution has stopped.
+`relay-chief cancel <ledger.db> <task-id>` releases a task in `needs_attention` or
+`awaiting_verification`, where the worker has already reported its end, and
+refuses every state where an agent may still run.
 
 There is no automatic claim expiry or administrative resend command. Silence,
 HTTP 404, a missing conversation or a timeout is not proof that work never ran.

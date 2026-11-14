@@ -259,13 +259,14 @@ export class Ledger {
     });
   }
   /**
-   * Operator-only: releases a task whose worker reported failure, so its capacity and resources
-   * can be used again. Anything else may still have an agent running, so it is refused.
+   * Operator-only: releases a task whose worker has finished, by failing or by reporting completion
+   * that is still unverified, so its capacity and resources can be used again. Any other state may
+   * still have an agent running, so it is refused.
    */
   cancelFailed(id: string, now: number): Task {
     return this.transaction(() => {
       const task = this.task(id);
-      if (task.status !== 'needs_attention') throw new Error('cancel_requires_needs_attention');
+      if (task.status !== 'needs_attention' && task.status !== 'awaiting_verification') throw new Error('cancel_requires_finished_task');
       this.db.prepare("UPDATE tasks SET status='canceled', updated_at=? WHERE id=?").run(now, id);
       this.db.prepare('DELETE FROM claims WHERE task_id=?').run(id);
       this.record({ evidenceDigest: task.assignment.evidenceDigest, kind: 'uncertain', outcome: 'deferred',
@@ -298,13 +299,14 @@ export class Ledger {
       return this.task(task.id);
     });
   }
-  verified(id: string, sequence: number, verification: Verification, now: number): Task {
+  /** `final` marks a failure no later check can overturn, so the task goes to an operator, not back to waiting. */
+  verified(id: string, sequence: number, verification: Verification, now: number, options: { final?: boolean } = {}): Task {
     return this.transaction(() => {
       const task = this.task(id);
       if (task.status !== 'awaiting_verification' || task.report?.sequence !== sequence) return task;
       const passed = verification.ok && verification.checks.length > 0;
       this.db.prepare('UPDATE tasks SET status=?, verification=?, updated_at=? WHERE id=?')
-        .run(passed ? 'completed' : 'awaiting_verification', canonical(verification), now, id);
+        .run(passed ? 'completed' : options.final ? 'needs_attention' : 'awaiting_verification', canonical(verification), now, id);
       if (passed) this.db.prepare('DELETE FROM claims WHERE task_id=?').run(id);
       return this.task(id);
     });

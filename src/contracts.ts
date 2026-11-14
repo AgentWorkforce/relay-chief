@@ -109,6 +109,8 @@ export interface RelayTransport {
   /** One attempt only. Success means delivery, never task completion. */
   send(assignment: Assignment, digest: string): Promise<{ messageId: string }>;
 }
+/** Why a bridge ended a task. Authored by the bridge, never by worker text. */
+export const reportReasons = ['runtime_exceeded', 'result_marker_missing', 'agent_failed', 'spawn_failed', 'stop_failed'] as const;
 export const reportSchema = z.strictObject({
   protocol: z.literal('relay-chief.report.v1'),
   taskId: id,
@@ -116,6 +118,9 @@ export const reportSchema = z.strictObject({
   sequence: z.number().int().positive(),
   state: z.enum(['accepted', 'running', 'completed', 'failed']),
   artifactRefs: z.array(z.string().url().max(2000)).max(100),
+  /** Untrusted worker text. Data only: never instructions, never logged. */
+  findings: z.string().min(1).max(3000).optional(),
+  reason: z.enum(reportReasons).optional(),
 });
 export type WorkerReport = z.infer<typeof reportSchema>;
 export interface AuthenticatedReport {
@@ -131,6 +136,10 @@ export interface Verification {
 }
 export interface CompletionVerifier {
   verify(assignment: Assignment, report: WorkerReport): Promise<Verification>;
+}
+/** Puts an investigation's findings where a maintainer can accept them. Idempotent per task. */
+export interface FindingsPublisher {
+  publish(assignment: Assignment, report: WorkerReport & { findings: string }): Promise<void>;
 }
 export type TaskStatus = 'reserved' | 'sending' | 'uncertain' | 'delivered' |
   'accepted' | 'running' | 'awaiting_verification' | 'needs_attention' | 'completed' | 'canceled';

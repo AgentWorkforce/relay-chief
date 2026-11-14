@@ -5,7 +5,8 @@ import { join } from 'node:path';
 import { test } from 'node:test';
 import { Chief } from '../src/chief.js';
 import { Ledger } from '../src/ledger.js';
-import { chiefConfigSchema } from '../src/contracts.js';
+import type { Verification } from '../src/contracts.js';
+import { chiefConfigSchema, reportSchema } from '../src/contracts.js';
 import { runCycle } from '../src/cycle.js';
 import { checkLedger } from '../src/invariants.js';
 import { config, evidence, harness, NOW, report } from './helpers.js';
@@ -324,9 +325,15 @@ test('an assignment is registered before its send, and a failed registration sen
 test('an operator can release a failed task, and nothing that may still be running', async () => {
   const h = harness({ config: { ...config(), policy: { ...config().policy, maxConcurrentTasks: 1 } } });
   const first = await h.chief.observe(evidence());
+  assert.throws(() => h.ledger.cancelFailed(first.taskId!, NOW), /cancel_requires_finished_task/);
   const task = await h.chief.dispatch(first.taskId!);
-  assert.throws(() => h.ledger.cancelFailed(task.id, NOW), /cancel_requires_needs_attention/);
-  await h.chief.receive({ workspaceId: 'workspace-1', agentId: 'agent-worker', report: report(task, 'failed') });
+  assert.throws(() => h.ledger.cancelFailed(task.id, NOW), /cancel_requires_finished_task/);
+  const event = { workspaceId: 'workspace-1', agentId: 'agent-worker' };
+  for (const [state, sequence] of [['accepted', 1], ['running', 2]] as const) {
+    await h.chief.receive({ ...event, report: report(task, state, sequence) });
+    assert.throws(() => h.ledger.cancelFailed(task.id, NOW), /cancel_requires_finished_task/);
+  }
+  await h.chief.receive({ ...event, report: { ...report(task, 'failed', 3), reason: 'runtime_exceeded' } });
   assert.equal(h.ledger.task(task.id).status, 'needs_attention');
   const blocked = await h.chief.observe(evidence({ sessionId: 's-2', workKey: 'issue-43', resourceKeys: ['issue-43'] }));
   assert.equal(blocked.reason, 'capacity_exhausted');
@@ -353,3 +360,79 @@ test('a deferred finding is recorded once however often it is retried', async ()
   h.ledger.close();
 });
 
+
+test('an operator can release finished work that is still awaiting verification', async () => {
+  const h = harness({ verification: false });
+  const { taskId } = await h.chief.observe(evidence());
+  const task = await h.chief.dispatch(taskId!);
+  await h.chief.receive({ workspaceId: 'workspace-1', agentId: 'agent-worker', report: report(task) });
+  assert.equal(h.ledger.task(task.id).status, 'awaiting_verification');
+  assert.equal(h.ledger.cancelFailed(task.id, NOW).status, 'canceled');
+  assert.equal((await h.chief.observe(evidence({ sessionId: 's-2', workKey: 'issue-43', resourceKeys: ['src/auth.ts'] }))).outcome, 'reserved');
+  h.ledger.close();
+});
+
+test('reports may carry findings and a bridge reason; older reports still validate', () => {
+  const base = { protocol: 'relay-chief.report.v1', taskId: 't', assignmentDigest: 'a'.repeat(64), sequence: 1, state: 'completed', artifactRefs: [] };
+  assert.equal(reportSchema.safeParse(base).success, true);
+  assert.equal(reportSchema.safeParse({ ...base, findings: 'x'.repeat(3000), reason: 'result_marker_missing' }).success, true);
+  for (const reason of ['runtime_exceeded', 'result_marker_missing', 'agent_failed', 'spawn_failed', 'stop_failed']) {
+    assert.equal(reportSchema.safeParse({ ...base, state: 'failed', reason }).success, true, reason);
+  }
+  assert.equal(reportSchema.safeParse({ ...base, findings: '' }).success, false);
+  assert.equal(reportSchema.safeParse({ ...base, findings: 'x'.repeat(3001) }).success, false);
+  assert.equal(reportSchema.safeParse({ ...base, reason: 'worker said so' }).success, false);
+  assert.equal(reportSchema.safeParse({ ...base, summary: 'not in the protocol' }).success, false);
+});
+
+function investigation(options: { publish?: () => Promise<void>; verification?: Verification } = {}) {
+  const h = harness({ classification: { kind: 'follow_up', confidence: 0.99 } });
+  const order: string[] = [];
+  const chief = new Chief(config(), h.ledger, { now: () => NOW, relay: h.relay,
+    classifier: { classify: async () => ({ kind: 'follow_up', confidence: 0.99 }) },
+    verifier: { verify: async () => { order.push('verify'); return options.verification ?? { ok: true, checks: ['findings_posted:c-1', 'accepted_by_reaction:m'] }; } },
+    findings: { publish: async (assignment, sent) => { order.push(`publish:${assignment.taskId}:${sent.findings}`); await options.publish?.(); } } });
+  return { chief, ledger: h.ledger, order };
+}
+
+test('an investigation publishes its findings before verification and completes only when verified', async () => {
+  let down = true;
+  const h = investigation({ publish: async () => { if (down) throw new Error('provider-secret'); } });
+  const { taskId } = await h.chief.observe(evidence());
+  const task = await h.chief.dispatch(taskId!);
+  assert.equal(task.assignment.action, 'investigate');
+  const done = { ...report(task), findings: 'Root cause is in src/auth.ts.' };
+  const waiting = await h.chief.receive({ workspaceId: 'workspace-1', agentId: 'agent-worker', report: done });
+  assert.equal(waiting.status, 'awaiting_verification');
+  assert.deepEqual(waiting.verification?.checks, ['findings_unpublished']);
+  assert.deepEqual(h.order, [`publish:${task.id}:${done.findings}`]);
+  assert.equal(h.ledger.task(task.id).report?.findings, done.findings);
+  down = false;
+  assert.equal((await h.chief.verify(task.id)).status, 'completed');
+  assert.deepEqual(h.order.slice(1), [`publish:${task.id}:${done.findings}`, 'verify']);
+  h.ledger.close();
+});
+
+test('posted findings are not republished while they await acceptance', async () => {
+  const h = investigation({ verification: { ok: false, checks: ['findings_posted:c-1', 'awaiting_acceptance'] } });
+  const { taskId } = await h.chief.observe(evidence());
+  const task = await h.chief.dispatch(taskId!);
+  await h.chief.receive({ workspaceId: 'workspace-1', agentId: 'agent-worker', report: { ...report(task), findings: 'Found it.' } });
+  await h.chief.verify(task.id);
+  assert.equal(h.ledger.task(task.id).status, 'awaiting_verification');
+  assert.deepEqual(h.order, [`publish:${task.id}:Found it.`, 'verify', 'verify']);
+  h.ledger.close();
+});
+
+test('a completed investigation without findings fails verification instead of waiting forever', async () => {
+  const h = investigation();
+  const { taskId } = await h.chief.observe(evidence());
+  const task = await h.chief.dispatch(taskId!);
+  const result = await h.chief.receive({ workspaceId: 'workspace-1', agentId: 'agent-worker', report: report(task) });
+  assert.equal(result.status, 'needs_attention');
+  assert.deepEqual(result.verification, { ok: false, checks: ['findings_missing'] });
+  assert.deepEqual(h.order, []);
+  assert.ok(checkLedger(h.ledger, config()).attention.includes(`needs_attention:${task.id}`));
+  assert.equal(h.ledger.cancelFailed(task.id, NOW).status, 'canceled');
+  h.ledger.close();
+});
