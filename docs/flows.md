@@ -128,10 +128,13 @@ its own defaults. Relay, Control and Jev are still fakes.
 
 Chief's hosted API lives in its own service,
 [`relaychief-control`](https://github.com/AgentWorkforce/relaychief-control), so that
-`relay-control` runs complete without the add-on. It is in progress and not deployed.
+`relay-control` runs complete without the add-on. It is installed on `agentrelay-dev`
+for development only; no customer environment runs it yet.
 
 The chief calls three routes there, defined in [the contracts](contracts.md): evidence,
 assignment registration and verification. Older docs call the control plane
-`relaycontrol`; that is `relay-control`, which no longer hosts these routes. Evidence
-and verification have no working authority yet, so a chief cannot complete work
-against this service.
+`relaycontrol`; that is `relay-control`, which no longer hosts these routes. On
+`agentrelay-dev`, evidence comes from GitHub through Nango, and verification checks
+that the investigate findings were posted and that a user with write access accepted
+them. The first supervised task completed this way on 2026-11-15
+([#8](https://github.com/AgentWorkforce/relay-chief/issues/8)).

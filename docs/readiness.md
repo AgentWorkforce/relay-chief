@@ -14,7 +14,8 @@ items have concrete evidence.
 - Exact worker identity, task digest, report sequencing and independent verification.
 - Tenant-bound SQLite state, cursors, cached classifications and deferred finding retry.
 - Source-version integrity and config/principal drift refusal.
-- Dedicated chief attribution in an EC2 plan and an idempotent accounting ledger.
+- Dedicated chief attribution in a cloud-neutral provisioning plan and an idempotent
+  accounting ledger.
 - Execution-side protocol validation with no chief implementation fallback.
 - Typecheck, tests, build and a multi-process local HTTP integration proof.
 - Project/policy/review setup and coordination status in relay-app, connected
@@ -27,17 +28,21 @@ items have concrete evidence.
 
 ## Required before hosted customers
 
-1. **Hosted setup integration:** the local setup UI and authenticated relaycontrol
-   gateway exist. Production still needs an admitted managed provider, shared
+1. **Hosted setup integration:** the local setup UI exists. Chief's hosted routes are
+   served by `relaychief-control`, which is installed on `agentrelay-dev` for
+   development only. Production still needs an admitted managed provider, shared
    control-plane registry and persistent provisioning jobs. The current registry
    is a single-process SQLite adapter; the integrated local provider is development
    code, excluded from the package and not wired into production startup. Supply
    the existing workspace GitHub App binding and Nango client to the repository
    adapter; qualify live connect/callback, App grants and revocation before launch.
-2. **Approved infrastructure:** review concrete IAM, network, encryption, secret
-   bindings and EC2 bootstrap; obtain Khaliq's approval before applying changes.
-   The current provisioning output is a desired-state contract, not executable
-   AWS infrastructure. Include disk/host replacement, backups and tested restore.
+2. **Approved infrastructure:** `provisionPlan()` stays a cloud-neutral
+   desired-state contract. `AgentWorkforce/infra`
+   (`terraform/modules/aws/relay-chief-slots`) maps it to AWS and has built a
+   development slot on `agentrelay-dev`. Customer environments still need reviewed
+   IAM, network, encryption, secret bindings and host bootstrap, and Khaliq's
+   approval before any apply. Include disk/host replacement, backups and tested
+   restore.
 3. **Execution bridge:** integrate the assignment/report contract with the actual
    Relay-managed native executor, verify session binding and durable deduplication,
    enforce worker resource and spending limits, and supply real execution capacity.
@@ -58,5 +63,6 @@ items have concrete evidence.
 `npm run proof` uses actual HTTP serialization and chief/worker subprocesses with
 SQLite on disk and real failing/passing sample-project tests. Its external setup,
 Relay, Jev and control-plane services are controlled fixtures. They prove the
-local contracts and failure behavior, not deployed integration or EC2 behavior.
+local contracts and failure behavior, not deployed integration or host behavior.
+The proof does not exercise the `agentrelay-dev` slot.
 All test inputs are synthetic; no customer data or live credentials are used.
