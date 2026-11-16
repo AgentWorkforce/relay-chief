@@ -1,12 +1,23 @@
 import { DatabaseSync } from 'node:sqlite';
 import { chmodSync, closeSync, existsSync, lstatSync, mkdirSync, openSync } from 'node:fs';
 import { dirname } from 'node:path';
-import type { Assignment, AuthenticatedReport, ChiefConfig, Classification, Decision, Evidence, RelayIdentity, Task, TaskStatus, Verification } from './contracts.js';
+import type { Assignment, AuthenticatedReport, ChiefConfig, Classification, Decision, Evidence, RelayIdentity, ReportUsage, Task, TaskStatus, UsageEvent, Verification } from './contracts.js';
 import { actionFor, canonical, hash, scope, usageSchema } from './contracts.js';
 import { evaluate } from './policy.js';
 
 type Row = Record<string, string | number | null>;
 const terminal = new Set<TaskStatus>(['completed', 'canceled']);
+/** What one task currently counts against the budget, and why. */
+export interface TaskCharge {
+  taskId: string;
+  status: TaskStatus;
+  reservationMicros: number;
+  /** The execution side's own figure, uncapped. A claim, not a bill. */
+  workerReportedCostMicros?: number;
+  chargedMicros: number;
+}
+/** Worker-reported events live in their own identity space, so trusted accounting cannot collide with them. */
+const workerUsageIdentity = (taskId: string) => hash(['worker_reported', taskId]);
 
 /** One private database per chief. SQLite owns cross-process exclusion and crash durability. */
 export class Ledger {
@@ -137,9 +148,13 @@ export class Ledger {
   decisions(): Decision[] {
     return (this.db.prepare('SELECT body FROM decisions ORDER BY id').all() as Row[]).map(r => JSON.parse(r.body as string) as Decision);
   }
-  /** Trusted accounting ingestion; worker reports cannot assert their own bill or lower a reservation. */
+  /**
+   * Trusted accounting ingestion. Worker reports never come through here: their cost is a claim the
+   * ledger records itself (`report`), labelled `worker_reported` and capped by the reservation.
+   */
   usage(raw: unknown): void {
     const event = usageSchema.parse(raw);
+    if (event.source !== undefined || event.provider === 'unknown') throw new Error('usage_source_reserved');
     this.transaction(() => {
       const binding = JSON.parse(this.getMeta('scope') ?? 'null') as { chiefId?: string; workspaceId?: string } | null;
       if (binding?.chiefId !== event.chiefId || binding.workspaceId !== event.workspaceId) throw new Error('usage_scope_mismatch');
@@ -152,17 +167,69 @@ export class Ledger {
       this.db.prepare('INSERT OR IGNORE INTO usage_events VALUES (?, ?)').run(identity, body);
     });
   }
-  accounting(): { knownCostMicros: number; unknownCostEvents: number; events: number; committedReservationMicros: number } {
+  /** `knownCostMicros` is trusted accounting only; worker claims are totalled apart and never mixed in. */
+  accounting(): { knownCostMicros: number; unknownCostEvents: number; events: number; committedReservationMicros: number;
+    workerReportedCostMicros: number; workerReportedEvents: number } {
     const events = (this.db.prepare('SELECT body FROM usage_events').all() as Row[])
       .map(row => usageSchema.parse(JSON.parse(row.body as string)));
-    let knownCostMicros = 0;
-    for (const event of events) {
-      if (event.costMicros !== null) knownCostMicros += event.costMicros;
-      if (!Number.isSafeInteger(knownCostMicros)) throw new Error('usage_total_overflow');
-    }
+    const trusted = events.filter(e => e.source === undefined);
+    const claims = events.filter(e => e.source === 'worker_reported');
+    const sum = (list: UsageEvent[]) => {
+      let total = 0;
+      for (const event of list) {
+        if (event.costMicros !== null) total += event.costMicros;
+        if (!Number.isSafeInteger(total)) throw new Error('usage_total_overflow');
+      }
+      return total;
+    };
     const committedReservationMicros = (this.db.prepare("SELECT COALESCE(SUM(reservation),0) AS n FROM tasks WHERE status != 'canceled'").get() as Row).n as number;
-    return { knownCostMicros, unknownCostEvents: events.filter(e => e.costMicros === null).length,
-      events: events.length, committedReservationMicros };
+    return { knownCostMicros: sum(trusted), unknownCostEvents: trusted.filter(e => e.costMicros === null).length,
+      events: trusted.length, committedReservationMicros, workerReportedCostMicros: sum(claims), workerReportedEvents: claims.length };
+  }
+  /**
+   * Each task's budget charge. A worker-reported cost is capped at the task's reservation, so it can
+   * never charge more than admission allowed. It lowers a charge only for a verified completed task,
+   * and only when policy opts in; everywhere else the reservation stands. A canceled task, which
+   * today charges nothing, is charged its capped reported cost, since that work did run.
+   */
+  charges(config: ChiefConfig): TaskCharge[] {
+    const settle = config.policy.settleWorkerReportedUsage === true;
+    const claims = new Map<string, number>();
+    for (const row of this.db.prepare('SELECT body FROM usage_events').all() as Row[]) {
+      const event = usageSchema.parse(JSON.parse(row.body as string));
+      if (event.source === 'worker_reported' && event.taskId && event.costMicros !== null) claims.set(event.taskId, event.costMicros);
+    }
+    return (this.db.prepare('SELECT id, status, reservation FROM tasks ORDER BY created_at, id').all() as Row[]).map(row => {
+      const status = row.status as TaskStatus;
+      const reservationMicros = row.reservation as number;
+      const claim = claims.get(row.id as string);
+      const capped = claim === undefined ? undefined : Math.min(claim, reservationMicros);
+      const chargedMicros = status === 'canceled' ? capped ?? 0 :
+        status === 'completed' && settle && capped !== undefined ? capped : reservationMicros;
+      return { taskId: row.id as string, status, reservationMicros, chargedMicros,
+        ...(claim === undefined ? {} : { workerReportedCostMicros: claim }) };
+    });
+  }
+  /** The budget in use: the sum of every task's charge. */
+  committed(config: ChiefConfig): number {
+    let total = 0;
+    for (const charge of this.charges(config)) {
+      total += charge.chargedMicros;
+      if (!Number.isSafeInteger(total)) throw new Error('usage_total_overflow');
+    }
+    return total;
+  }
+  /** Keeps the highest figure a worker reported for a task, so a later terminal report cannot shrink it. */
+  private workerUsage(task: Task, usage: ReportUsage, now: number): void {
+    const identity = workerUsageIdentity(task.id);
+    const existing = this.db.prepare('SELECT body FROM usage_events WHERE identity=?').get(identity) as Row | undefined;
+    if (existing && (usageSchema.parse(JSON.parse(existing.body as string)).costMicros ?? 0) >= usage.costMicros) return;
+    const event: UsageEvent = { eventId: `worker-report:${task.id}`, chiefId: task.assignment.chiefId,
+      workspaceId: task.assignment.workspaceId, taskId: task.id, actor: 'worker', provider: 'unknown', occurredAt: now,
+      costMicros: usage.costMicros, inputTokens: usage.inputTokens ?? null, outputTokens: usage.outputTokens ?? null,
+      source: 'worker_reported' };
+    this.db.prepare('INSERT INTO usage_events VALUES (?, ?) ON CONFLICT(identity) DO UPDATE SET body=excluded.body')
+      .run(identity, canonical(usageSchema.parse(event)));
   }
   reserve(config: ChiefConfig, evidence: Evidence, classification: Classification, now: number): Decision {
     return this.transaction(() => {
@@ -192,10 +259,9 @@ export class Ledger {
       for (const resource of resources) {
         if (this.db.prepare('SELECT task_id FROM claims WHERE resource=?').get(resource)) return defer('resource_claimed');
       }
-      const totals = this.db.prepare(`SELECT COUNT(CASE WHEN status NOT IN ('completed','canceled') THEN 1 END) AS active,
-        COALESCE(SUM(CASE WHEN status != 'canceled' THEN reservation ELSE 0 END),0) AS used FROM tasks`).get() as Row;
+      const totals = this.db.prepare(`SELECT COUNT(CASE WHEN status NOT IN ('completed','canceled') THEN 1 END) AS active FROM tasks`).get() as Row;
       if ((totals.active as number) >= config.policy.maxConcurrentTasks) return defer('capacity_exhausted');
-      if (config.policy.taskReservationMicros > config.policy.budgetMicros - (totals.used as number)) return defer('budget_exhausted');
+      if (config.policy.taskReservationMicros > config.policy.budgetMicros - this.committed(config)) return defer('budget_exhausted');
       const worker = config.workers.find(w => w.actions.includes(action));
       if (!worker) return defer('no_eligible_worker');
       const generation = (this.db.prepare('SELECT COUNT(*) AS n FROM tasks WHERE objective=?').get(objective) as Row).n;
@@ -296,6 +362,9 @@ export class Ledger {
         event.report.state === 'failed' ? 'needs_attention' : event.report.state;
       this.db.prepare('UPDATE tasks SET status=?, report=?, updated_at=? WHERE id=?')
         .run(status, canonical(event.report), now, task.id);
+      if (event.report.usage && (event.report.state === 'completed' || event.report.state === 'failed')) {
+        this.workerUsage(task, event.report.usage, now);
+      }
       return this.task(task.id);
     });
   }

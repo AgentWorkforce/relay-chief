@@ -123,6 +123,18 @@ instructions, and never logs it. `reason` is a bridge-authored code, one of
 `runtime_exceeded`, `result_marker_missing`, `agent_failed`, `spawn_failed` or
 `stop_failed`; `inspect` shows it. Reports without either field remain valid.
 
+A third optional field, `usage`, carries what the execution side says the task cost:
+
+```json
+"usage": { "costMicros": 72000, "inputTokens": 1200, "outputTokens": 300, "source": "worker_reported" }
+```
+
+`costMicros` is a non-negative integer of microdollars; the token counts are optional
+non-negative integers; `source` must be `worker_reported`. It is read on `completed` and
+`failed` reports only. An invalid `usage` is dropped, not refused, so a bad figure never
+loses a terminal report: the task is then charged as if the field were absent. See
+[Worker-reported cost](#worker-reported-cost) for how it is charged.
+
 States are `accepted`, `running`, `completed`, `failed`. Sequence numbers increase
 per task. Repeating the same sequence and payload is safe; conflicting reuse is
 refused. Sender ID and workspace are read from Relay, never the report body.
@@ -194,10 +206,39 @@ Recovery without worker receipts needs a provider-supported, durable execution
 fence and an authenticated operator workflow; this is a rollout requirement.
 Do not manually delete rows to make a stuck task run again.
 
-Task reservations bound admission and remain committed on verified completion.
-They do not measure billed costs or enforce remote executor spending. Budgets are
-lifetime per-chief totals in this version; configure a deliberate policy change
-for increased allocation. Automatic billing periods and refunds are not inferred.
+Task reservations bound admission and remain committed on verified completion
+unless worker-reported settlement is on (below). They do not enforce remote executor
+spending. Budgets are lifetime per-chief totals in this version; configure a deliberate
+policy change for increased allocation. Automatic billing periods and refunds are not
+inferred.
+
+### Worker-reported cost
+
+A terminal report's `usage` is a claim from the execution side, not a bill. The ledger
+records it as a `usage_events` row tied to the task, with `actor: worker`,
+`provider: unknown` and `source: worker_reported`, in an identity space trusted
+ingestion cannot write: `ledger.usage()` refuses `source` and `provider: unknown`.
+One row per task holds the highest figure any terminal report gave, so a later report
+can raise it but not lower it. `accounting()` totals these apart from trusted costs, as
+`workerReportedCostMicros` and `workerReportedEvents`; `knownCostMicros` stays trusted
+accounting only.
+
+Each task's budget charge (`ledger.charges()`, summed by `ledger.committed()`) is:
+
+| Task | Charge |
+| --- | --- |
+| `completed` (verified), with `policy.settleWorkerReportedUsage: true` and a reported cost | the reported cost, capped at the reservation |
+| `canceled` after reporting a cost | the reported cost, capped at the reservation |
+| `canceled` with no reported cost | 0 |
+| any other state, or no reported cost | the full reservation |
+
+So a reported cost never charges more than the reservation admission allowed, and
+never lowers a charge unless trusted configuration opts in, and then only once the
+work is verified. Unverified and failed work keeps its full reservation, because its
+agent may still be running. Admission (`budget_exhausted`) and `check`'s `over_budget`
+both use these charges. A claim above its reservation is capped and shown by `check`
+as `worker_cost_over_reservation:<task-id>`. `settleWorkerReportedUsage` is off by
+default; turning it on is a policy change and needs a new configuration revision.
 
 `ledger.usage()` accepts trusted accounting events with event ID, chief/workspace,
 optional task, actor, provider, provider identity ID, time, nullable microdollar
