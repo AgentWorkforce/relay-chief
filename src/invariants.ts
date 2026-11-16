@@ -24,8 +24,12 @@ export function checkLedger(ledger: Ledger, config: ChiefConfig): LedgerCheck {
   const active = live.filter(task => task.status !== 'completed');
   // Reservation enforces these limits. Exceeding them here means a policy was lowered, which is not a breach.
   if (active.length > config.policy.maxConcurrentTasks) attention.push('over_capacity');
-  const reserved = live.reduce((sum, task) => sum + task.assignment.reservationMicros, 0);
-  if (reserved > config.policy.budgetMicros) attention.push('over_budget');
+  const charges = ledger.charges(config);
+  if (ledger.committed(config) > config.policy.budgetMicros) attention.push('over_budget');
+  // A worker claiming more than its reservation is capped, but an operator should know the cap bit.
+  for (const charge of charges) {
+    if ((charge.workerReportedCostMicros ?? 0) > charge.reservationMicros) attention.push(`worker_cost_over_reservation:${charge.taskId}`);
+  }
   const objectives = new Set<string>();
   const resources = new Set<string>();
   for (const task of live) {

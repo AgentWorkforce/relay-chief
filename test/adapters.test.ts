@@ -146,7 +146,8 @@ test('accounting is scoped, idempotent, separate from reservations, and preserve
     costMicros: 125_000, inputTokens: 2000, outputTokens: 1000 };
   h.ledger.usage(event); h.ledger.usage(event);
   h.ledger.usage({ ...event, eventId: 'jev-1', actor: 'classifier', provider: 'typesafe', costMicros: null, inputTokens: null, outputTokens: null });
-  assert.deepEqual(h.ledger.accounting(), { knownCostMicros: 125_000, unknownCostEvents: 1, events: 2, committedReservationMicros: 1_000_000 });
+  assert.deepEqual(h.ledger.accounting(), { knownCostMicros: 125_000, unknownCostEvents: 1, events: 2, committedReservationMicros: 1_000_000,
+    workerReportedCostMicros: 0, workerReportedEvents: 0 });
   assert.throws(() => h.ledger.usage({ ...event, costMicros: 0 }), /usage_event_conflict/);
   assert.throws(() => h.ledger.usage({ ...event, chiefId: 'other' }), /usage_scope_mismatch/);
   assert.throws(() => h.ledger.usage({ ...event, actor: 'worker', taskId: undefined }), /usage_task_required/);

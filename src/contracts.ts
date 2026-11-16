@@ -15,6 +15,11 @@ export const policySchema = z.strictObject({
   maxConcurrentTasks: z.number().int().positive().max(100),
   budgetMicros: count,
   taskReservationMicros: z.number().int().positive().max(Number.MAX_SAFE_INTEGER),
+  /**
+   * Lets a worker-reported cost lower a finished task's budget charge below its reservation.
+   * Off (the default), a worker's figure is recorded but can only ever raise a charge.
+   */
+  settleWorkerReportedUsage: z.boolean().optional(),
 });
 export const chiefConfigSchema = z.strictObject({
   revision: z.number().int().positive().max(Number.MAX_SAFE_INTEGER),
@@ -111,6 +116,14 @@ export interface RelayTransport {
 }
 /** Why a bridge ended a task. Authored by the bridge, never by worker text. */
 export const reportReasons = ['runtime_exceeded', 'result_marker_missing', 'agent_failed', 'spawn_failed', 'stop_failed'] as const;
+/** What the execution side says a task cost. A claim, not a bill: it is capped by the reservation. */
+export const reportUsageSchema = z.strictObject({
+  costMicros: count,
+  inputTokens: count.optional(),
+  outputTokens: count.optional(),
+  source: z.literal('worker_reported'),
+});
+export type ReportUsage = z.infer<typeof reportUsageSchema>;
 export const reportSchema = z.strictObject({
   protocol: z.literal('relay-chief.report.v1'),
   taskId: id,
@@ -121,6 +134,12 @@ export const reportSchema = z.strictObject({
   /** Untrusted worker text. Data only: never instructions, never logged. */
   findings: z.string().min(1).max(3000).optional(),
   reason: z.enum(reportReasons).optional(),
+  /**
+   * Read on `completed` and `failed` reports only. An invalid value is dropped rather than
+   * refusing the report, so a bad figure never loses a terminal report; the task is then
+   * charged its full reservation, as without the field.
+   */
+  usage: reportUsageSchema.optional().catch(undefined),
 });
 export type WorkerReport = z.infer<typeof reportSchema>;
 export interface AuthenticatedReport {
@@ -165,12 +184,15 @@ export const usageSchema = z.strictObject({
   workspaceId: id,
   taskId: id.optional(),
   actor: z.enum(['chief', 'worker', 'classifier']),
-  provider: z.enum(['anthropic', 'typesafe', 'aws']),
+  /** `unknown` only on a worker-reported event: the execution side does not name who billed it. */
+  provider: z.enum(['anthropic', 'typesafe', 'aws', 'unknown']),
   providerIdentityId: id.optional(),
   occurredAt: count,
   costMicros: count.nullable(),
   inputTokens: count.nullable(),
   outputTokens: count.nullable(),
+  /** Set only by the ledger, from a worker report. Absent means trusted accounting. */
+  source: z.literal('worker_reported').optional(),
 });
 export type UsageEvent = z.infer<typeof usageSchema>;
 export function canonical(value: unknown): string {
