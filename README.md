@@ -1,10 +1,6 @@
 # Relay Chief
 
-A persistent project coordinator that delegates through Agent Relay. Customers
-will configure a chief through Cloud / relaycontrol / relay-app; a dedicated
-host runs the same runtime provided here. The chief observes project evidence,
-classifies findings, applies deterministic policy and ownership gates, and sends
-bounded assignments to execution agents. It never implements customer changes.
+Relay Chief coordinates project work through Agent Relay. It turns evidence into bounded assignments and checks policy before dispatching work; implementation stays with execution agents.
 
 **Current status:** the coordinator core, HTTP adapters, provisioning plan,
 worker protocol, accounting ledger and local integration proof are implemented.
